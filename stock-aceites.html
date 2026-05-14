@@ -461,8 +461,8 @@ window.prevMail=function(){
   const asunto=`Pedido de Fluidos p/ ${marca} INT ${fv('np_interno')} ${num}`;
 
   // filas para el mail plano (mailto)
-  const filasMail=npItems.map((it,i)=>`  ${String(i+1).padEnd(4)}${it.aceite.padEnd(38)}${String(it.cantidad)+' litros'}`).join('\n');
-  const body=`Buen día Jorge,\n\nFavor avanzar con la siguiente solicitud de Fluidos:\n\n──────────────────────────────────────────────\n  DETALLE DEL PEDIDO\n──────────────────────────────────────────────\n\n  Nro de Pedido:     ${num}\n  Fecha:             ${fechaStr}\n  Equipo Destino:    ${fv('np_equipo')}\n  Nro Interno:       ${fv('np_interno')}\n  Marca Equipo:      ${marca}\n\n──────────────────────────────────────────────\n  #   TIPO DE ACEITE                         CANTIDAD\n──────────────────────────────────────────────\n${filasMail}\n──────────────────────────────────────────────\n${obs?'\n  Observaciones:\n  '+obs+'\n\n──────────────────────────────────────────────\n':''}\nQuedo a disposición ante cualquier consulta.\n\nSaludos,`;
+  const filasMail=npItems.map((it,i)=>`   ${i+1}.  ${it.aceite}\n       Cantidad: ${it.cantidad} litros`).join('\n\n');
+  const body=`Buen día Jorge,\n\nFavor avanzar con la siguiente solicitud de Fluidos:\n\nPedido N°:   ${num}\nFecha:       ${fechaStr}\nEquipo:      ${fv('np_equipo')}  |  Interno: ${fv('np_interno')}  |  Marca: ${marca}\n\nAceites solicitados:\n\n${filasMail}\n${obs?'\nObservaciones:\n'+obs+'\n':''}\nSaludos,`;
 
   const to='jorgesteiner@ecominera.com.ar',cc='guillermocorrea@ecominera.com.ar;alejandrofernandez@ecominera.com.ar;PASANTECRE@ecominera.com.ar;danielfernandez@ecominera.com.ar';
   const link=`mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(body)}`;
