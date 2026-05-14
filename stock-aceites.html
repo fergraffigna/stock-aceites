@@ -4,668 +4,562 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stock de Aceites — Ecominera</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f0f2f5;
-  --bg2: #ffffff;
-  --bg3: #f5f7fa;
-  --border: #e0e4eb;
-  --border2: #c8cfd9;
-  --text: #1a2030;
-  --text2: #5a6478;
-  --text3: #9aa3b2;
-  --accent: #1a6fd4;
-  --accent2: #2d82e8;
-  --green: #1a9e5c;
-  --green-bg: rgba(26,158,92,0.10);
-  --red: #d93a55;
-  --red-bg: rgba(217,58,85,0.10);
-  --yellow: #c47f00;
-  --yellow-bg: rgba(196,127,0,0.10);
-  --blue: #1a6fd4;
-  --blue-bg: rgba(26,111,212,0.10);
-  --radius: 6px;
-  --font: 'IBM Plex Sans', sans-serif;
-  --mono: 'IBM Plex Mono', monospace;
+:root{
+  --bg:#f4f6fb;--bg2:#ffffff;--bg3:#f0f3f9;--border:#e2e8f4;--border2:#c8d2e8;
+  --text:#0f1b2d;--text2:#5a6a85;--text3:#a0aec0;
+  --accent:#2563eb;--accent2:#1d4ed8;--accent-light:#eff4ff;
+  --green:#059669;--green-bg:#ecfdf5;--green-border:#a7f3d0;
+  --red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;
+  --yellow:#d97706;--yellow-bg:#fffbeb;--yellow-border:#fde68a;
+  --radius:10px;--radius-sm:6px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
 
 /* LOGIN */
-.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:32px;padding:20px}
-.login-logo{text-align:center}
-.login-logo .drop{font-size:40px;margin-bottom:12px;filter:drop-shadow(0 0 16px rgba(26,111,212,0.25))}
-.login-logo h1{font-size:22px;font-weight:600;letter-spacing:-0.5px}
-.login-logo p{font-size:13px;color:var(--text2);margin-top:4px;font-family:var(--mono)}
-.login-cards{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
-.login-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px 32px;cursor:pointer;text-align:center;transition:all .2s;min-width:180px;position:relative;overflow:hidden}
-.login-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .2s}
-.login-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.login-card:hover::before{transform:scaleX(1)}
-.login-card .ic{font-size:32px;margin-bottom:12px}
-.login-card h3{font-size:15px;font-weight:600;margin-bottom:6px}
-.login-card p{font-size:12px;color:var(--text2);line-height:1.6}
-#loginStatus{font-size:12px;color:var(--text2);font-family:var(--mono)}
+.login-page{min-height:100vh;display:flex;align-items:stretch}
+.login-left{flex:0 0 400px;background:linear-gradient(145deg,#1e3a6e 0%,#2563eb 60%,#3b82f6 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
+.login-left::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(255,255,255,.06) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,255,255,.08) 0%,transparent 50%)}
+.ll-content{position:relative;text-align:center;color:#fff}
+.ll-content .logo{font-size:60px;margin-bottom:20px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.3))}
+.ll-content h1{font-size:26px;font-weight:700;margin-bottom:8px;letter-spacing:-.5px}
+.ll-content p{font-size:14px;opacity:.7;line-height:1.7}
+.ll-features{margin-top:36px;display:flex;flex-direction:column;gap:12px;text-align:left}
+.ll-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.8)}
+.ll-feat-icon{width:28px;height:28px;background:rgba(255,255,255,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.login-right{flex:1;display:flex;align-items:center;justify-content:center;padding:48px}
+.login-box{width:100%;max-width:380px}
+.login-box h2{font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-.5px}
+.login-box .sub{font-size:13px;color:var(--text2);margin-bottom:32px;line-height:1.5}
+.user-selector{display:flex;gap:10px;margin-bottom:24px}
+.user-opt{flex:1;padding:14px 12px;border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:center;transition:all .2s;background:var(--bg2)}
+.user-opt:hover{border-color:rgba(37,99,235,.4);background:var(--accent-light)}
+.user-opt.sel{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.user-opt .u-icon{font-size:24px;margin-bottom:6px}
+.user-opt .u-name{font-size:12px;font-weight:700;color:var(--text)}
+.user-opt .u-desc{font-size:11px;color:var(--text2);margin-top:2px}
+.lf{margin-bottom:18px}
+.lf label{display:block;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px}
+.lf input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font);color:var(--text);background:var(--bg2);transition:all .15s}
+.lf input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.login-btn{width:100%;height:46px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .15s;letter-spacing:.2px}
+.login-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,.35)}
+.login-btn:disabled{opacity:.6;transform:none;cursor:default}
+.login-err{color:var(--red);font-size:12px;margin-top:10px;text-align:center;min-height:18px;font-weight:500}
+@media(max-width:720px){.login-page{flex-direction:column}.login-left{flex:none;min-height:180px;padding:28px}.ll-features{display:none}.login-right{padding:28px 20px}}
 
 /* HEADER */
-.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:50}
-.header-left{display:flex;align-items:center;gap:12px}
-.header-logo{font-size:18px}
-.header h2{font-size:15px;font-weight:600;letter-spacing:-0.3px}
-.badge{font-size:11px;padding:2px 10px;border-radius:100px;font-family:var(--mono);font-weight:500}
-.badge.ing{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(77,159,255,0.2)}
-.badge.pan{background:var(--green-bg);color:var(--green);border:1px solid rgba(45,202,115,0.2)}
-.header-right{display:flex;gap:8px;align-items:center}
-.hbtn{height:30px;padding:0 12px;border-radius:var(--radius);font-size:12px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);transition:all .15s}
-.hbtn:hover{border-color:var(--border2);color:var(--text)}
-.hbtn.sync{color:var(--blue);border-color:rgba(77,159,255,0.3)}
-.hbtn.sync:hover{background:var(--blue-bg)}
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.h-brand{display:flex;align-items:center;gap:12px}
+.h-brand .logo{font-size:22px}
+.h-brand h2{font-size:15px;font-weight:700;letter-spacing:-.3px}
+.h-brand span{color:var(--text2);font-weight:400}
+.badge{font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;letter-spacing:.3px}
+.badge.ing{background:var(--accent-light);color:var(--accent);border:1px solid rgba(37,99,235,.2)}
+.badge.pan{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.h-right{display:flex;gap:8px;align-items:center}
+.hbtn{height:32px;padding:0 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);transition:all .15s}
+.hbtn:hover{border-color:var(--border2);color:var(--text);background:var(--bg3)}
+.hbtn.sync{color:var(--accent);border-color:rgba(37,99,235,.25)}
+.hbtn.sync:hover{background:var(--accent-light)}
 
 /* TABS */
-.tabs{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 20px}
-.tab{padding:14px 16px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;color:var(--text2);transition:all .15s;font-weight:500}
+.tabs{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 24px}
+.tab{padding:14px 18px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;color:var(--text2);transition:all .15s;display:flex;align-items:center;gap:7px}
 .tab:hover:not(.active){color:var(--text)}
 .tab.active{border-bottom-color:var(--accent);color:var(--accent)}
 
 /* CONTENT */
-.content{padding:20px;max-width:1200px;margin:0 auto}
+.content{padding:24px;max-width:1300px;margin:0 auto}
 
 /* CARDS */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:14px}
-.card-title{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.card-title{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;display:flex;align-items:center;gap:8px}
 
 /* METRICS */
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px}
-.metric{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
-.metric .val{font-size:26px;font-weight:600;font-family:var(--mono);color:var(--text)}
-.metric .lbl{font-size:11px;color:var(--text2);margin-top:4px;line-height:1.4}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:20px}
+.metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.metric .m-accent{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:4px 0 0 4px}
+.metric.mb .m-accent{background:var(--accent)}
+.metric.mg .m-accent{background:var(--green)}
+.metric.my .m-accent{background:var(--yellow)}
+.metric.mr .m-accent{background:var(--red)}
+.metric .m-icon{font-size:22px;margin-bottom:12px}
+.metric .val{font-size:30px;font-weight:700;font-family:var(--mono);color:var(--text);line-height:1}
+.metric .lbl{font-size:11px;color:var(--text2);margin-top:6px;font-weight:600}
 
 /* FORMS */
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.fg{display:flex;flex-direction:column;gap:5px}
-.fg label{font-size:11px;color:var(--text2);font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
-.fg input,.fg select,.fg textarea{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg3);color:var(--text);font-family:var(--font);transition:border-color .15s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--accent)}
-.fg select option{background:var(--bg3)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:11px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--bg3);color:var(--text);font-family:var(--font);transition:all .15s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--accent);background:var(--bg2);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
 .fg textarea{min-height:64px;resize:vertical}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--text3)}
 
 /* BUTTONS */
-.btn{height:36px;padding:0 18px;border-radius:var(--radius);font-size:13px;cursor:pointer;font-family:var(--font);font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn.pri{background:var(--accent);color:#fff;border:none}
-.btn.pri:hover{background:var(--accent2)}
-.btn.suc{background:var(--green-bg);color:var(--green);border:1px solid rgba(45,202,115,0.3)}
-.btn.suc:hover{background:rgba(45,202,115,0.2)}
-.btn.inf{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(77,159,255,0.3)}
-.btn.inf:hover{background:rgba(77,159,255,0.2)}
-.btn.dan{background:var(--red-bg);color:var(--red);border:1px solid rgba(255,77,109,0.3)}
-.btn.dan:hover{background:rgba(255,77,109,0.2)}
-.btn.ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
-.btn.ghost:hover{border-color:var(--border2);color:var(--text)}
-.brow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.btn{height:38px;padding:0 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn.pri{background:var(--accent);color:#fff;border:none;box-shadow:0 2px 8px rgba(37,99,235,.2)}
+.btn.pri:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,99,235,.3)}
+.btn.suc{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-border)}
+.btn.suc:hover{background:#d1fae5}
+.btn.wrn{background:var(--yellow-bg);color:var(--yellow);border:1.5px solid var(--yellow-border)}
+.btn.wrn:hover{background:#fef3c7}
+.btn.dan{background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-border)}
+.btn.dan:hover{background:#fee2e2}
+.btn.ghost{background:transparent;color:var(--text2);border:1.5px solid var(--border)}
+.btn.ghost:hover{border-color:var(--border2);color:var(--text);background:var(--bg3)}
+.btn.sm{height:30px;padding:0 12px;font-size:12px}
+.brow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
 
 /* ALERTS */
-.alert{padding:10px 14px;border-radius:var(--radius);font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.alert.suc{background:var(--green-bg);color:var(--green);border:1px solid rgba(45,202,115,0.2)}
-.alert.wrn{background:var(--yellow-bg);color:var(--yellow);border:1px solid rgba(240,165,0,0.2)}
-.alert.inf{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(77,159,255,0.2)}
-.alert.err{background:var(--red-bg);color:var(--red);border:1px solid rgba(255,77,109,0.2)}
+.alert{padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1.5px solid}
+.alert.suc{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+.alert.wrn{background:var(--yellow-bg);color:var(--yellow);border-color:var(--yellow-border)}
+.alert.inf{background:var(--accent-light);color:var(--accent);border-color:rgba(37,99,235,.2)}
+.alert.err{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
 
 /* TABLE */
-.tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;font-size:11px}
-td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.tw{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{background:var(--bg3)}
+th{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;font-size:11px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,0.02)}
-.obs-cell{max-width:160px;font-size:11px;color:var(--text2);white-space:normal;word-break:break-word}
-.num{font-family:var(--mono);font-weight:500;color:var(--accent)}
+tbody tr:hover td{background:rgba(37,99,235,.02)}
+.obs-cell{max-width:180px;font-size:12px;color:var(--text2);white-space:normal;word-break:break-word}
+.mono{font-family:var(--mono);font-weight:500}
+.accent{color:var(--accent)}
 
-/* STATUS */
-.st{display:inline-block;font-size:11px;padding:2px 8px;border-radius:100px;font-family:var(--mono);font-weight:500}
-.st.p{background:var(--yellow-bg);color:var(--yellow)}
-.st.l{background:var(--green-bg);color:var(--green)}
-.st.r{background:var(--blue-bg);color:var(--blue)}
+/* PILLS */
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px}
+.pill::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.pill.pend{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+.pill.pend::before{background:var(--yellow)}
+.pill.lleg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.pill.lleg::before{background:var(--green)}
+.pill.sc{background:var(--accent-light);color:var(--accent);border:1px solid rgba(37,99,235,.2)}
+.pill.sc::before{background:var(--accent)}
 
-/* MAIL PREVIEW */
-.mail-pre{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;font-size:12px;white-space:pre-wrap;font-family:var(--mono);line-height:1.7;margin-top:12px;color:var(--text2)}
-.mail-pre .mail-val{color:var(--text)}
+/* STOCK */
+.s-ok{color:var(--green);font-family:var(--mono);font-weight:700}
+.s-low{color:var(--yellow);font-family:var(--mono);font-weight:700}
+.s-zero{color:var(--red);font-family:var(--mono);font-weight:700}
+.row-low td{background:rgba(217,119,6,.03)!important}
+.row-zero td{background:rgba(220,38,38,.03)!important}
+.sbadge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px}
+.sbadge.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.sbadge.low{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+.sbadge.zero{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 
-/* LOADING */
-.loading{display:flex;align-items:center;gap:10px;color:var(--text2);font-size:13px;padding:40px;justify-content:center}
-.spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+/* MAIL */
+.mail-wrap{margin-top:16px;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.mail-head{background:var(--bg3);padding:14px 18px;border-bottom:1px solid var(--border)}
+.mail-row{font-size:12px;padding:3px 0;display:flex;gap:8px}
+.mail-row .lbl{color:var(--text2);font-weight:700;min-width:62px;flex-shrink:0}
+.mail-row .val{color:var(--text)}
+.mail-body{padding:18px;font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--text2);background:var(--bg2);white-space:pre-wrap}
+.mail-body .hl{color:var(--text);font-weight:500}
+
+/* INLINE EDIT */
+.edit-inp{width:90px;padding:5px 8px;border:1.5px solid var(--accent);border-radius:var(--radius-sm);font-size:13px;font-family:var(--mono);font-weight:600;background:var(--bg2);color:var(--text)}
+.edit-inp:focus{outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+
+/* MISC */
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* STOCK COLOR */
-.s-ok{color:var(--green);font-family:var(--mono);font-weight:500}
-.s-low{color:var(--yellow);font-family:var(--mono);font-weight:500}
-.s-zero{color:var(--red);font-family:var(--mono);font-weight:500}
-
-/* DIVIDER */
-.divider{height:1px;background:var(--border);margin:18px 0}
-
+.divider{height:1px;background:var(--border);margin:20px 0}
 a.btn{text-decoration:none}
+.form-section{background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.form-section-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px}
 </style>
 </head>
 <body>
-
 <div id="app">
-  <!-- LOGIN -->
-  <div class="login-wrap" id="loginScreen">
-    <div class="login-logo">
-      <div class="drop">🛢</div>
-      <h1>Stock de Aceites</h1>
-      <p>Ecominera — Sistema de control</p>
-    </div>
-    <div class="login-cards">
-      <div class="login-card" onclick="login('ingeniero')">
-        <div class="ic">⚙️</div>
-        <h3>Ingeniero</h3>
-        <p>Acceso completo<br>Pedidos · Stock · Mail</p>
-      </div>
-      <div class="login-card" onclick="login('pañolero')">
-        <div class="ic">📋</div>
-        <h3>Pañolero</h3>
-        <p>Solicitudes · Llegados<br>Consumos</p>
-      </div>
-    </div>
-    <div id="loginStatus"></div>
-  </div>
 
-  <!-- MAIN APP -->
-  <div id="mainApp" style="display:none">
-    <div class="header">
-      <div class="header-left">
-        <span class="header-logo">🛢</span>
-        <h2>Stock de Aceites</h2>
-        <span class="badge" id="userBadge"></span>
-      </div>
-      <div class="header-right">
-        <button class="hbtn sync" onclick="sincronizar()">↺ Sincronizar</button>
-        <button class="hbtn" onclick="logout()">Salir</button>
+<!-- LOGIN -->
+<div id="loginPage" class="login-page">
+  <div class="login-left">
+    <div class="ll-content">
+      <div class="logo">🛢️</div>
+      <h1>Stock de Aceites</h1>
+      <p>Sistema de control de fluidos<br>Ecominera</p>
+      <div class="ll-features">
+        <div class="ll-feat"><div class="ll-feat-icon">📋</div>Control de pedidos en tiempo real</div>
+        <div class="ll-feat"><div class="ll-feat-icon">📦</div>Seguimiento de stock automático</div>
+        <div class="ll-feat"><div class="ll-feat-icon">✉️</div>Generación de mails para Outlook</div>
+        <div class="ll-feat"><div class="ll-feat-icon">🔄</div>Sincronización entre equipos</div>
       </div>
     </div>
-    <div class="tabs" id="tabsRow"></div>
-    <div class="content" id="mainContent"></div>
+  </div>
+  <div class="login-right">
+    <div class="login-box">
+      <h2>Bienvenido 👋</h2>
+      <p class="sub">Seleccioná tu perfil e ingresá tu contraseña para acceder al sistema.</p>
+      <div class="user-selector">
+        <div class="user-opt sel" id="opt_ing" onclick="selectUser('ingeniero')">
+          <div class="u-icon">⚙️</div>
+          <div class="u-name">Ingeniero</div>
+          <div class="u-desc">Acceso completo</div>
+        </div>
+        <div class="user-opt" id="opt_pan" onclick="selectUser('pañolero')">
+          <div class="u-icon">📋</div>
+          <div class="u-name">Pañolero</div>
+          <div class="u-desc">Solicitudes y stock</div>
+        </div>
+      </div>
+      <div class="lf">
+        <label>Contraseña</label>
+        <input type="password" id="loginPass" placeholder="Ingresá tu contraseña" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="login-btn" id="loginBtn" onclick="doLogin()">Ingresar →</button>
+      <div class="login-err" id="loginErr"></div>
+      <div id="loginLoading" style="display:none;text-align:center;margin-top:14px">
+        <div style="display:inline-flex;align-items:center;gap:8px;color:var(--text2);font-size:13px"><div class="spinner"></div>Cargando datos del sistema...</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Firebase -->
+<!-- MAIN -->
+<div id="mainApp" style="display:none">
+  <div class="header">
+    <div class="h-brand">
+      <span class="logo">🛢️</span>
+      <h2>Stock <span>de Aceites</span></h2>
+      <span class="badge" id="userBadge"></span>
+    </div>
+    <div class="h-right">
+      <button class="hbtn sync" onclick="sincronizar()">↺ Sincronizar</button>
+      <button class="hbtn" onclick="logout()">Salir</button>
+    </div>
+  </div>
+  <div class="tabs" id="tabsRow"></div>
+  <div class="content" id="mainContent"></div>
+</div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDzxGQPTISzojlc3CKDMzN8pigTW__j2U0",
-  authDomain: "stock-aceites-9ca0f.firebaseapp.com",
-  projectId: "stock-aceites-9ca0f",
-  storageBucket: "stock-aceites-9ca0f.firebasestorage.app",
-  messagingSenderId: "174224345409",
-  appId: "1:174224345409:web:d2e9df7dc12fc8e2b339c0"
+const firebaseConfig={apiKey:"AIzaSyDzxGQPTISzojlc3CKDMzN8pigTW__j2U0",authDomain:"stock-aceites-9ca0f.firebaseapp.com",projectId:"stock-aceites-9ca0f",storageBucket:"stock-aceites-9ca0f.firebasestorage.app",messagingSenderId:"174224345409",appId:"1:174224345409:web:d2e9df7dc12fc8e2b339c0"};
+const fbApp=initializeApp(firebaseConfig);
+const db=getFirestore(fbApp);
+
+const PASSWORDS={ingeniero:'graffigna11','pañolero':'jorge123'};
+const ACEITES_BASE=["10W","10W30 MOTOR","10W30 TRX (UTTO)","10W40 MOTOR","15W40 MOTOR","80W","80W90 TRX HIPOIDAL","85W140","75W80","SAE 30 TRX","SAE 30 CONVERTIDOR","SAE 50","SUPER 50","SUPER 10W","FT SUPER 30","HIDRAULICO BP 68 (YPF)","HIDRAULICO BP 46 (YPF)","HIDRAULICO TELLUS S2V68","HIDRAULICO 10W","TELLUS 32V HIDRAULICO","TELLUS AIR TOOL S2A","TRASMISION SPIRAX S4 CX 30","ATF","BP 32","CORENA S4 R 32 COMPRESOR","AZOLLA ZS 32 COMPRESOR","REFRIGERANTE RED","REFRIGERANTE GREEN","PARAFLU RED ANTICONGELANTE","ANTICONGELANTE HEAVY DUTY TIPO A","GRASA V220","TELLUS S2 M 32","TELLUS S2 M 68"].sort();
+const STOCK_INI={"15W40 MOTOR":155,"10W40 MOTOR":200,"10W30 MOTOR":580,"10W30 TRX (UTTO)":205,"80W90 TRX HIPOIDAL":730,"85W140":480,"75W80":220,"80W":100,"SAE 30 TRX":65,"SAE 30 CONVERTIDOR":100,"SAE 50":20,"SUPER 50":600,"SUPER 10W":0,"FT SUPER 30":200,"HIDRAULICO BP 68 (YPF)":975,"HIDRAULICO BP 46 (YPF)":0,"HIDRAULICO TELLUS S2V68":0,"HIDRAULICO 10W":0,"TELLUS 32V HIDRAULICO":260,"TELLUS AIR TOOL S2A":400,"TRASMISION SPIRAX S4 CX 30":0,"ATF":303,"BP 32":1040,"CORENA S4 R 32 COMPRESOR":5,"AZOLLA ZS 32 COMPRESOR":0,"REFRIGERANTE RED":70,"REFRIGERANTE GREEN":30,"PARAFLU RED ANTICONGELANTE":275,"ANTICONGELANTE HEAVY DUTY TIPO A":300,"GRASA V220":200,"10W":400,"TELLUS S2 M 32":200,"TELLUS S2 M 68":200};
+
+let S={user:null,tab:0,sel:'ingeniero',pedidos:[],consumos:[],stock:{},counter:27};
+
+async function fbGet(id){try{const s=await getDoc(doc(db,'aceites',id));return s.exists()?s.data().value:null;}catch{return null;}}
+async function fbSet(id,v){try{await setDoc(doc(db,'aceites',id),{value:v});}catch(e){console.error(e);}}
+async function cargar(){const[p,c,sk,n]=await Promise.all([fbGet('pedidos'),fbGet('consumos'),fbGet('stock'),fbGet('counter')]);S.pedidos=p||[];S.consumos=c||[];S.stock=sk||JSON.parse(JSON.stringify(STOCK_INI));S.counter=n||27;}
+async function guardar(){await Promise.all([fbSet('pedidos',S.pedidos),fbSet('consumos',S.consumos),fbSet('stock',S.stock),fbSet('counter',S.counter)]);}
+
+function getAceites(){return[...new Set([...ACEITES_BASE,...Object.keys(S.stock)])].sort();}
+function aceiteOpts(){return`<option value="">Seleccionar aceite...</option>${getAceites().map(a=>`<option>${a}</option>`).join('')}`;}
+function fmt(d){if(!d)return'-';try{return new Date(d+'T12:00:00').toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit'});}catch{return d;}}
+function fv(id){return document.getElementById(id)?.value||'';}
+function nextNum(){return'PF'+String(S.counter).padStart(2,'0');}
+function msg(id,type,html){const el=document.getElementById(id);if(el)el.innerHTML=`<div class="alert ${type}" style="margin-top:12px">${html}</div>`;}
+
+window.selectUser=function(u){S.sel=u;document.getElementById('opt_ing').classList.toggle('sel',u==='ingeniero');document.getElementById('opt_pan').classList.toggle('sel',u==='pañolero');document.getElementById('loginPass').value='';document.getElementById('loginErr').textContent='';};
+
+window.doLogin=async function(){
+  const pass=document.getElementById('loginPass').value,err=document.getElementById('loginErr');
+  if(!pass){err.textContent='Ingresá tu contraseña';return;}
+  if(pass!==PASSWORDS[S.sel]){err.textContent='Contraseña incorrecta ✕';return;}
+  err.textContent='';
+  document.getElementById('loginLoading').style.display='block';
+  document.getElementById('loginBtn').disabled=true;
+  await cargar();
+  S.user=S.sel;
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('mainApp').style.display='block';
+  const b=document.getElementById('userBadge');
+  b.textContent=S.user==='ingeniero'?'Ingeniero':'Pañolero';
+  b.className='badge '+(S.user==='ingeniero'?'ing':'pan');
+  buildTabs();renderTab(0);
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+window.logout=function(){S.user=null;document.getElementById('loginPage').style.display='flex';document.getElementById('mainApp').style.display='none';document.getElementById('loginPass').value='';document.getElementById('loginLoading').style.display='none';document.getElementById('loginBtn').disabled=false;};
 
-const ACEITES = [
-  "15W40 MOTOR","10W40 MOTOR","10W30 MOTOR","10W30 TRX (UTTO)",
-  "80W90 TRX HIPOIDAL","85W140","75W80","80W","SAE 30 TRX",
-  "SAE 30 CONVERTIDOR","SAE 50","SUPER 50","SUPER 10W","FT SUPER 30",
-  "HIDRAULICO BP 68 (YPF)","HIDRAULICO BP 46 (YPF)","HIDRAULICO TELLUS S2V68",
-  "HIDRAULICO 10W","TELLUS 32V HIDRAULICO","TELLUS AIR TOOL S2A",
-  "TRASMISION SPIRAX S4 CX 30","ATF","BP 32","CORENA S4 R 32 COMPRESOR",
-  "AZOLLA ZS 32 COMPRESOR","REFRIGERANTE RED","REFRIGERANTE GREEN",
-  "PARAFLU RED ANTICONGELANTE","ANTICONGELANTE HEAVY DUTY TIPO A",
-  "GRASA V220","10W","TELLUS S2 M 32","TELLUS S2 M 68"
-];
+window.sincronizar=async function(){const b=document.querySelector('.hbtn.sync');if(b)b.textContent='↺ Actualizando...';await cargar();renderTab(S.tab);if(b)b.textContent='↺ Sincronizar';};
 
-const STOCK_INICIAL = {
-  "15W40 MOTOR":155,"10W40 MOTOR":200,"10W30 MOTOR":580,"10W30 TRX (UTTO)":205,
-  "80W90 TRX HIPOIDAL":730,"85W140":480,"75W80":220,"80W":100,"SAE 30 TRX":65,
-  "SAE 30 CONVERTIDOR":100,"SAE 50":20,"SUPER 50":600,"SUPER 10W":0,
-  "FT SUPER 30":200,"HIDRAULICO BP 68 (YPF)":975,"HIDRAULICO BP 46 (YPF)":0,
-  "HIDRAULICO TELLUS S2V68":0,"HIDRAULICO 10W":0,"TELLUS 32V HIDRAULICO":260,
-  "TELLUS AIR TOOL S2A":400,"TRASMISION SPIRAX S4 CX 30":0,"ATF":303,
-  "BP 32":1040,"CORENA S4 R 32 COMPRESOR":5,"AZOLLA ZS 32 COMPRESOR":0,
-  "REFRIGERANTE RED":70,"REFRIGERANTE GREEN":30,"PARAFLU RED ANTICONGELANTE":275,
-  "ANTICONGELANTE HEAVY DUTY TIPO A":300,"GRASA V220":200,"10W":400,
-  "TELLUS S2 M 32":200,"TELLUS S2 M 68":200
+function buildTabs(){
+  const tabs=S.user==='ingeniero'
+    ?[['📊','Resumen'],['📋','Pedidos'],['➕','Nuevo pedido'],['📉','Consumos'],['📦','Stock']]
+    :[['📊','Resumen'],['📋','Pedidos'],['✅','Solicitudes'],['📉','Consumos'],['📦','Stock']];
+  document.getElementById('tabsRow').innerHTML=tabs.map(([ic,t],i)=>`<div class="tab${i===0?' active':''}" onclick="renderTab(${i})">${ic} ${t}</div>`).join('');
+}
+function setTab(i){document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));}
+window.renderTab=function(i){
+  S.tab=i;setTab(i);
+  const tabs=S.user==='ingeniero'?[rResumen,rPedidos,rNuevo,rConsumos,rStock]:[rResumen,rPedidos,rSolicitudes,rConsumos,rStock];
+  document.getElementById('mainContent').innerHTML=tabs[i]();
 };
 
-let S = { user:null, tab:0, pedidos:[], consumos:[], stock:{}, counter:27 };
-
-// ── FIREBASE HELPERS ──────────────────────────────────────
-async function fbGet(docId) {
-  try {
-    const snap = await getDoc(doc(db, "aceites", docId));
-    return snap.exists() ? snap.data().value : null;
-  } catch(e) { return null; }
-}
-async function fbSet(docId, value) {
-  try {
-    await setDoc(doc(db, "aceites", docId), { value });
-  } catch(e) { console.error(e); }
-}
-
-async function cargarDatos() {
-  const [p, c, sk, n] = await Promise.all([
-    fbGet('pedidos'), fbGet('consumos'), fbGet('stock'), fbGet('counter')
-  ]);
-  S.pedidos  = p  || [];
-  S.consumos = c  || [];
-  S.stock    = sk || JSON.parse(JSON.stringify(STOCK_INICIAL));
-  S.counter  = n  || 27;
-}
-
-async function guardarDatos() {
-  await Promise.all([
-    fbSet('pedidos',  S.pedidos),
-    fbSet('consumos', S.consumos),
-    fbSet('stock',    S.stock),
-    fbSet('counter',  S.counter)
-  ]);
-}
-
-// ── AUTH ──────────────────────────────────────────────────
-window.login = async function(u) {
-  document.getElementById('loginStatus').innerHTML = '<div style="display:flex;align-items:center;gap:8px"><div class="spinner"></div> Cargando datos...</div>';
-  await cargarDatos();
-  S.user = u;
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('mainApp').style.display = 'block';
-  const b = document.getElementById('userBadge');
-  b.textContent = u === 'ingeniero' ? 'Ingeniero' : 'Pañolero';
-  b.className = 'badge ' + (u === 'ingeniero' ? 'ing' : 'pan');
-  buildTabs();
-  renderTab(0);
-};
-
-window.logout = function() {
-  S.user = null;
-  document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('mainApp').style.display = 'none';
-  document.getElementById('loginStatus').innerHTML = '';
-};
-
-window.sincronizar = async function() {
-  const btn = document.querySelector('.hbtn.sync');
-  if(btn) btn.textContent = '↺ Cargando...';
-  await cargarDatos();
-  renderTab(S.tab);
-  if(btn) btn.textContent = '↺ Sincronizar';
-};
-
-// ── TABS ──────────────────────────────────────────────────
-function buildTabs() {
-  const tabs = S.user === 'ingeniero'
-    ? ['Resumen','Pedidos pendientes','Nuevo pedido','Consumos','Stock']
-    : ['Resumen','Pedidos pendientes','Solicitudes / Llegados','Consumos','Stock'];
-  document.getElementById('tabsRow').innerHTML = tabs.map((t,i) =>
-    `<div class="tab${i===0?' active':''}" onclick="renderTab(${i})">${t}</div>`
-  ).join('');
-}
-
-function setTab(i) {
-  document.querySelectorAll('.tab').forEach((t,j) => t.classList.toggle('active', j===i));
-}
-
-window.renderTab = function(i) {
-  S.tab = i; setTab(i);
-  const c = document.getElementById('mainContent');
-  const tabs = S.user === 'ingeniero'
-    ? [renderResumen, renderPedidosPendientes, renderNuevoPedido, renderConsumos, renderStock]
-    : [renderResumen, renderPedidosPendientes, renderSolicitudes, renderConsumos, renderStock];
-  c.innerHTML = tabs[i]();
-};
-
-// ── UTILS ─────────────────────────────────────────────────
-function fmt(d) {
-  if(!d) return '-';
-  try { return new Date(d+'T12:00:00').toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit'}); }
-  catch(e) { return d; }
-}
-function nextNum() { return 'PF' + String(S.counter).padStart(2,'0'); }
-function fv(id) { return document.getElementById(id)?.value || ''; }
-
-// ── RESUMEN ───────────────────────────────────────────────
-function renderResumen() {
-  const pend   = S.pedidos.filter(p=>p.estado==='PENDIENTE').length;
-  const conSC  = S.pedidos.filter(p=>p.nroSolicitud&&p.estado==='PENDIENTE').length;
-  const sinSC  = S.pedidos.filter(p=>!p.nroSolicitud&&p.estado==='PENDIENTE').length;
-  const llegados = S.pedidos.filter(p=>p.estado==='LLEGADO').length;
-  const stockBajo = Object.entries(S.stock).filter(([,v])=>v<50&&v>0).length;
-  const sinStock  = Object.entries(S.stock).filter(([,v])=>v===0).length;
-  return `
+// RESUMEN
+function rResumen(){
+  const pend=S.pedidos.filter(p=>p.estado==='PENDIENTE').length;
+  const sinSC=S.pedidos.filter(p=>!p.nroSolicitud&&p.estado==='PENDIENTE').length;
+  const lleg=S.pedidos.filter(p=>p.estado==='LLEGADO').length;
+  const bajo=Object.entries(S.stock).filter(([,v])=>v>0&&v<40).length;
+  const cero=Object.entries(S.stock).filter(([,v])=>v===0).length;
+  return`
   <div class="metrics">
-    <div class="metric"><div class="val">${pend}</div><div class="lbl">Pedidos pendientes</div></div>
-    <div class="metric"><div class="val">${conSC}</div><div class="lbl">Con solicitud</div></div>
-    <div class="metric"><div class="val">${sinSC}</div><div class="lbl">Sin solicitud</div></div>
-    <div class="metric"><div class="val">${llegados}</div><div class="lbl">Llegados</div></div>
-    <div class="metric"><div class="val">${S.consumos.length}</div><div class="lbl">Consumos totales</div></div>
+    <div class="metric mb"><div class="m-accent"></div><div class="m-icon">📋</div><div class="val">${pend}</div><div class="lbl">Pedidos pendientes</div></div>
+    <div class="metric my"><div class="m-accent"></div><div class="m-icon">⏳</div><div class="val">${sinSC}</div><div class="lbl">Sin solicitud cargada</div></div>
+    <div class="metric mg"><div class="m-accent"></div><div class="m-icon">✅</div><div class="val">${lleg}</div><div class="lbl">Pedidos llegados</div></div>
+    <div class="metric mr"><div class="m-accent"></div><div class="m-icon">⚠️</div><div class="val">${bajo+cero}</div><div class="lbl">Stock bajo o sin stock</div></div>
+    <div class="metric mb"><div class="m-accent"></div><div class="m-icon">📦</div><div class="val">${Object.keys(S.stock).length}</div><div class="lbl">Tipos de aceite</div></div>
   </div>
-  ${sinSC>0?`<div class="alert wrn">⚠ ${sinSC} pedido${sinSC>1?'s':''} sin solicitud de compra cargada</div>`:''}
-  ${stockBajo>0?`<div class="alert wrn">⚠ ${stockBajo} aceite${stockBajo>1?'s':''} con stock bajo (menos de 50L)</div>`:''}
-  ${sinStock>0?`<div class="alert err">✕ ${sinStock} aceite${sinStock>1?'s':''} sin stock</div>`:''}
+  ${sinSC>0?`<div class="alert wrn">⚠️ <b>${sinSC}</b> pedido${sinSC>1?'s':''} sin solicitud de compra</div>`:''}
+  ${bajo>0?`<div class="alert wrn">⚠️ <b>${bajo}</b> aceite${bajo>1?'s':''} con menos de 40 litros</div>`:''}
+  ${cero>0?`<div class="alert err">🚨 <b>${cero}</b> aceite${cero>1?'s':''} sin stock disponible</div>`:''}
   <div class="card">
-    <div class="card-title">Últimos consumos</div>
+    <div class="card-header"><div class="card-title">📉 Últimos consumos</div></div>
     <div class="tw"><table>
-      <tr><th>Fecha</th><th>Aceite</th><th>Cant (L)</th><th>Equipo</th><th>Interno</th><th>Trabajador</th></tr>
-      ${S.consumos.slice(-8).reverse().map(c=>`
-        <tr><td>${fmt(c.fecha)}</td><td>${c.aceite}</td><td class="num">${c.cantidad}</td><td>${c.equipo||'-'}</td><td>${c.interno||'-'}</td><td>${c.trabajador||'-'}</td></tr>
-      `).join('')||'<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text3)">Sin consumos registrados</td></tr>'}
+      <thead><tr><th>Fecha</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>Trabajador</th></tr></thead>
+      <tbody>${S.consumos.length===0?`<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--text3)">Sin consumos registrados</td></tr>`:S.consumos.slice(-8).reverse().map(c=>`<tr><td>${fmt(c.fecha)}</td><td><b>${c.aceite}</b></td><td class="mono accent">${c.cantidad}L</td><td>${c.equipo||'-'}</td><td>${c.interno||'-'}</td><td>${c.trabajador||'-'}</td></tr>`).join('')}</tbody>
     </table></div>
   </div>`;
 }
 
-// ── PEDIDOS PENDIENTES ────────────────────────────────────
-function renderPedidosPendientes() {
-  return `
-  <div class="card">
-    <div class="card-title">Todos los pedidos</div>
+// PEDIDOS
+function rPedidos(){
+  return`<div class="card">
+    <div class="card-header"><div class="card-title">📋 Todos los pedidos</div></div>
     <div class="tw"><table>
-      <tr><th>N°</th><th>Fecha</th><th>Aceite</th><th>Cant (L)</th><th>Equipo</th><th>Interno</th><th>Estado</th><th>N° Solicitud</th><th>Observaciones</th>${S.user==='ingeniero'?'<th></th>':''}</tr>
-      ${S.pedidos.length===0?`<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--text3)">Sin pedidos cargados</td></tr>`:''}
-      ${S.pedidos.map((p,i)=>`
+      <thead><tr><th>N°</th><th>Fecha</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>Estado</th><th>N° Solicitud</th><th>Observaciones</th>${S.user==='ingeniero'?'<th></th>':''}</tr></thead>
+      <tbody>${S.pedidos.length===0?`<tr><td colspan="10" style="text-align:center;padding:28px;color:var(--text3)">No hay pedidos cargados</td></tr>`:S.pedidos.map((p,i)=>`
         <tr>
-          <td class="num">${p.numero}</td>
-          <td>${fmt(p.fecha)}</td>
-          <td>${p.aceite}</td>
-          <td class="num">${p.cantidad}</td>
-          <td>${p.equipo}</td>
-          <td>${p.interno}</td>
-          <td><span class="st ${p.estado==='PENDIENTE'?'p':'l'}">${p.estado}</span></td>
-          <td>${p.nroSolicitud||'<span style="color:var(--text3);font-size:11px">Sin cargar</span>'}</td>
+          <td class="mono accent">${p.numero}</td><td>${fmt(p.fecha)}</td><td><b>${p.aceite}</b></td>
+          <td class="mono">${p.cantidad}L</td><td>${p.equipo}</td><td>${p.interno}</td>
+          <td>${p.estado==='PENDIENTE'?'<span class="pill pend">PENDIENTE</span>':'<span class="pill lleg">LLEGADO</span>'}</td>
+          <td>${p.nroSolicitud?`<span class="pill sc">${p.nroSolicitud}</span>`:'<span style="color:var(--text3);font-size:12px">Sin cargar</span>'}</td>
           <td class="obs-cell">${p.observaciones||'-'}</td>
-          ${S.user==='ingeniero'?`<td><button class="btn dan" style="height:28px;font-size:11px;padding:0 10px" onclick="borrarPedido(${i})">✕</button></td>`:''}
-        </tr>
-      `).join('')}
+          ${S.user==='ingeniero'?`<td><button class="btn dan sm" onclick="borrarPedido(${i})">✕</button></td>`:''}
+        </tr>`).join('')}
+      </tbody>
     </table></div>
   </div>`;
 }
 
-// ── NUEVO PEDIDO (INGENIERO) ──────────────────────────────
-function renderNuevoPedido() {
-  const hoy = new Date().toISOString().split('T')[0];
-  return `
-  <div class="card">
-    <div class="card-title">Nuevo pedido — <span style="color:var(--accent);font-family:var(--mono)">${nextNum()}</span></div>
-    <div class="fgrid">
-      <div class="fg"><label>Fecha</label><input type="date" id="np_fecha" value="${hoy}"></div>
-      <div class="fg"><label>Tipo de aceite</label>
-        <select id="np_aceite"><option value="">Seleccionar...</option>${ACEITES.map(a=>`<option>${a}</option>`).join('')}</select>
+// NUEVO PEDIDO
+function rNuevo(){
+  const hoy=new Date().toISOString().split('T')[0];
+  return`<div class="card">
+    <div class="card-header"><div class="card-title">➕ Nuevo pedido</div><span class="mono accent" style="font-size:16px;font-weight:700">${nextNum()}</span></div>
+    <div class="form-section">
+      <div class="form-section-title">Datos del aceite</div>
+      <div class="fgrid3">
+        <div class="fg"><label>Fecha</label><input type="date" id="np_fecha" value="${hoy}"></div>
+        <div class="fg"><label>Tipo de aceite</label><select id="np_aceite">${aceiteOpts()}</select></div>
+        <div class="fg"><label>Cantidad (litros)</label><input type="number" id="np_cant" placeholder="205" min="1"></div>
       </div>
-      <div class="fg"><label>Cantidad (litros)</label><input type="number" id="np_cant" placeholder="205" min="1"></div>
-      <div class="fg"><label>Equipo destino</label><input type="text" id="np_equipo" placeholder="DD321"></div>
-      <div class="fg"><label>Nro interno</label><input type="text" id="np_interno" placeholder="1106"></div>
-      <div class="fg"><label>Marca equipo</label><input type="text" id="np_marca" placeholder="SANDVIK"></div>
-      <div class="fg"><label>Modelo equipo</label><input type="text" id="np_modelo" placeholder="DD321"></div>
     </div>
-    <div class="fg" style="margin-top:12px"><label>Observaciones</label>
-      <textarea id="np_obs" placeholder="Urgencia, contacto, notas adicionales..."></textarea>
+    <div class="form-section">
+      <div class="form-section-title">Datos del equipo</div>
+      <div class="fgrid">
+        <div class="fg"><label>Equipo destino</label><input type="text" id="np_equipo" placeholder="DD321"></div>
+        <div class="fg"><label>Nro interno</label><input type="text" id="np_interno" placeholder="1106"></div>
+        <div class="fg"><label>Marca</label><input type="text" id="np_marca" placeholder="SANDVIK"></div>
+        <div class="fg"><label>Modelo</label><input type="text" id="np_modelo" placeholder="DD321"></div>
+      </div>
     </div>
+    <div class="fg" style="margin-bottom:4px"><label>Observaciones</label><textarea id="np_obs" placeholder="Urgencia, notas adicionales..."></textarea></div>
     <div class="brow">
-      <button class="btn pri" onclick="guardarPedido()">Guardar pedido</button>
-      <button class="btn inf" onclick="previewMail()">Generar mail Outlook</button>
+      <button class="btn pri" onclick="guardarPedido()">💾 Guardar pedido</button>
+      <button class="btn ghost" onclick="prevMail()">✉️ Generar mail Outlook</button>
     </div>
-    <div id="saveMsg"></div>
-    <div id="mailArea"></div>
+    <div id="np_msg"></div><div id="mailArea"></div>
   </div>`;
 }
 
-window.guardarPedido = async function() {
-  if(!fv('np_aceite')||!fv('np_cant')||!fv('np_equipo')||!fv('np_interno')) {
-    alert('Completá: aceite, cantidad, equipo e interno'); return;
-  }
-  const num = nextNum();
-  S.pedidos.push({
-    numero:num, fecha:fv('np_fecha'), aceite:fv('np_aceite'),
-    cantidad:parseInt(fv('np_cant')), equipo:fv('np_equipo'),
-    interno:fv('np_interno'), marca:fv('np_marca'), modelo:fv('np_modelo'),
-    observaciones:fv('np_obs'), estado:'PENDIENTE', nroSolicitud:''
-  });
+window.guardarPedido=async function(){
+  if(!fv('np_aceite')||!fv('np_cant')||!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá: aceite, cantidad, equipo e interno');return;}
+  const num=nextNum();
+  S.pedidos.push({numero:num,fecha:fv('np_fecha'),aceite:fv('np_aceite'),cantidad:parseInt(fv('np_cant')),equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),modelo:fv('np_modelo'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''});
   S.counter++;
-  const msg = document.getElementById('saveMsg');
-  if(msg) msg.innerHTML = '<div class="alert inf" style="margin-top:10px"><div class="spinner"></div> Guardando...</div>';
-  await guardarDatos();
-  if(msg) msg.innerHTML = `<div class="alert suc" style="margin-top:10px">✓ Pedido ${num} guardado y sincronizado en ambas computadoras</div>`;
-  setTimeout(()=>renderTab(2), 1500);
+  msg('np_msg','inf','<div class="spinner"></div> Guardando...');
+  await guardar();
+  msg('np_msg','suc',`✓ Pedido ${num} guardado y sincronizado`);
+  setTimeout(()=>renderTab(2),1500);
 };
 
-window.previewMail = function() {
-  if(!fv('np_aceite')||!fv('np_cant')||!fv('np_equipo')||!fv('np_interno')) {
-    alert('Completá los campos para generar el mail'); return;
-  }
-  const num = nextNum();
-  const fechaStr = fv('np_fecha') ? new Date(fv('np_fecha')+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'short'}) : '-';
-  const obs = fv('np_obs');
-  const bodyTxt =
-`Buen día Jorge,
-
-Favor avanzar con solicitud de Fluidos,
-
-FECHA PEDIDO\tTIPO DE ACEITE\tCANTIDAD\tEQUIPO\tINTERNO\tPEDIDO N°
-${fechaStr}\t${fv('np_aceite')}\t${fv('np_cant')}\t${fv('np_equipo')}\t${fv('np_interno')}\t${num}
-
-Saludos,${obs?'\n\nObs: '+obs:''}`;
-
-  const to  = 'jorgesteiner@ecominera.com.ar';
-  const cc  = 'guillermocorrea@ecominera.com.ar;alejandrofernandez@ecominera.com.ar;PASANTECRE@ecominera.com.ar;danielfernandez@ecominera.com.ar';
-  const subj = encodeURIComponent(`Solicitud de Fluidos - ${num} - ${fv('np_aceite')}`);
-  const link = `mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${subj}&body=${encodeURIComponent(bodyTxt)}`;
-
-  document.getElementById('mailArea').innerHTML = `
+window.prevMail=function(){
+  if(!fv('np_aceite')||!fv('np_cant')||!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá los campos para generar el mail');return;}
+  const num=nextNum(),obs=fv('np_obs');
+  const fechaStr=fv('np_fecha')?new Date(fv('np_fecha')+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'short'}):'-';
+  const body=`Buen día Jorge,\n\nFavor avanzar con solicitud de Fluidos,\n\nFECHA PEDIDO\tTIPO DE ACEITE\tCANTIDAD\tEQUIPO\tINTERNO\tPEDIDO N°\n${fechaStr}\t${fv('np_aceite')}\t${fv('np_cant')}\t${fv('np_equipo')}\t${fv('np_interno')}\t${num}\n\nSaludos,${obs?'\n\nObs: '+obs:''}`;
+  const to='jorgesteiner@ecominera.com.ar',cc='guillermocorrea@ecominera.com.ar;alejandrofernandez@ecominera.com.ar;PASANTECRE@ecominera.com.ar;danielfernandez@ecominera.com.ar';
+  const link=`mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent('Solicitud de Fluidos - '+num+' - '+fv('np_aceite'))}&body=${encodeURIComponent(body)}`;
+  document.getElementById('mailArea').innerHTML=`
     <div class="divider"></div>
-    <div class="alert suc">✓ Mail listo — hacé clic en "Abrir en Outlook" para enviarlo</div>
-    <div class="mail-pre">Para: <span class="mail-val">jorgesteiner@ecominera.com.ar</span>
-CC: <span class="mail-val">guillermocorrea@ecominera.com.ar; alejandrofernandez@ecominera.com.ar; PASANTECRE@ecominera.com.ar; danielfernandez@ecominera.com.ar</span>
-Asunto: <span class="mail-val">Solicitud de Fluidos - ${num} - ${fv('np_aceite')}</span>
-
-Buen día Jorge,
+    <div class="alert suc">✓ Mail generado — hacé clic en "Abrir en Outlook"</div>
+    <div class="mail-wrap">
+      <div class="mail-head">
+        <div class="mail-row"><span class="lbl">Para:</span><span class="val">jorgesteiner@ecominera.com.ar</span></div>
+        <div class="mail-row"><span class="lbl">CC:</span><span class="val">guillermocorrea@; alejandrofernandez@; PASANTECRE@; danielfernandez@ecominera.com.ar</span></div>
+        <div class="mail-row"><span class="lbl">Asunto:</span><span class="val">Solicitud de Fluidos - ${num} - ${fv('np_aceite')}</span></div>
+      </div>
+      <div class="mail-body">Buen día Jorge,
 
 Favor avanzar con solicitud de Fluidos,
 
-FECHA         TIPO DE ACEITE                       CANT    EQUIPO    INTERNO   PEDIDO N°
-<span class="mail-val">${fechaStr.padEnd(14)}${fv('np_aceite').padEnd(37)}${fv('np_cant').padEnd(8)}${fv('np_equipo').padEnd(10)}${fv('np_interno').padEnd(10)}${num}</span>
+<span class="hl">FECHA         TIPO DE ACEITE                      CANT    EQUIPO    INTERNO   N° PEDIDO
+${fechaStr.padEnd(14)}${fv('np_aceite').padEnd(36)}${fv('np_cant').padEnd(8)}${fv('np_equipo').padEnd(10)}${fv('np_interno').padEnd(10)}${num}</span>
 
 Saludos,${obs?'\n\nObs: '+obs:''}</div>
-    <div class="brow"><a href="${link}" class="btn pri">Abrir en Outlook</a></div>`;
+    </div>
+    <div class="brow"><a href="${link}" class="btn pri">✉️ Abrir en Outlook</a></div>`;
 };
 
-window.borrarPedido = async function(i) {
-  if(confirm('¿Eliminar este pedido?')) {
-    S.pedidos.splice(i,1);
-    await guardarDatos();
-    renderTab(1);
-  }
-};
+window.borrarPedido=async function(i){if(!confirm('¿Eliminar este pedido?'))return;S.pedidos.splice(i,1);await guardar();renderTab(1);};
 
-// ── SOLICITUDES / LLEGADOS (PAÑOLERO) ────────────────────
-function renderSolicitudes() {
-  const sinSC    = S.pedidos.filter(p=>p.estado==='PENDIENTE'&&!p.nroSolicitud);
-  const conSC    = S.pedidos.filter(p=>p.estado==='PENDIENTE'&&p.nroSolicitud);
-  const sinLlegar= S.pedidos.filter(p=>p.estado==='PENDIENTE');
-  return `
+// SOLICITUDES
+function rSolicitudes(){
+  const sinSC=S.pedidos.filter(p=>p.estado==='PENDIENTE'&&!p.nroSolicitud);
+  const conSC=S.pedidos.filter(p=>p.estado==='PENDIENTE'&&p.nroSolicitud);
+  const sinLlegar=S.pedidos.filter(p=>p.estado==='PENDIENTE');
+  return`
   <div class="card">
-    <div class="card-title">Cargar número de solicitud de compra</div>
-    ${sinSC.length===0?'<div class="alert suc">✓ Todos los pedidos pendientes tienen solicitud cargada</div>':''}
+    <div class="card-header"><div class="card-title">📝 Cargar solicitud de compra</div></div>
+    ${sinSC.length===0?'<div class="alert suc">✓ Todos los pedidos tienen solicitud cargada</div>':''}
     <div class="fgrid">
-      <div class="fg"><label>Pedido pendiente</label>
-        <select id="sol_ped" onchange="mostrarDetSol()">
-          <option value="">Seleccionar...</option>
-          ${sinSC.map(p=>`<option value="${p.numero}">${p.numero} — ${p.aceite} — Int. ${p.interno}</option>`).join('')}
-        </select>
-      </div>
+      <div class="fg"><label>Pedido pendiente</label><select id="sol_ped" onchange="detSol()"><option value="">Seleccionar pedido...</option>${sinSC.map(p=>`<option value="${p.numero}">${p.numero} — ${p.aceite} — Int. ${p.interno}</option>`).join('')}</select></div>
       <div class="fg"><label>Nro solicitud de compra</label><input type="text" id="sol_num" placeholder="SC-12345"></div>
     </div>
     <div id="sol_det" style="font-size:12px;color:var(--text2);margin-top:8px;min-height:18px"></div>
-    <div class="brow"><button class="btn pri" onclick="guardarSolicitud()">Guardar solicitud</button></div>
+    <div class="brow"><button class="btn pri" onclick="guardarSolicitud()">💾 Guardar solicitud</button></div>
     <div id="sol_msg"></div>
   </div>
 
   <div class="card">
-    <div class="card-title">Marcar pedido llegado — actualizar stock</div>
+    <div class="card-header"><div class="card-title">🚚 Marcar pedido llegado</div></div>
     <div class="fgrid">
-      <div class="fg"><label>Pedido que llegó</label>
-        <select id="ll_ped">
-          <option value="">Seleccionar...</option>
-          ${sinLlegar.map(p=>`<option value="${p.numero}">${p.numero} — ${p.aceite} (${p.cantidad}L)${p.nroSolicitud?' · SC:'+p.nroSolicitud:''}</option>`).join('')}
-        </select>
-      </div>
+      <div class="fg"><label>Pedido que llegó</label><select id="ll_ped"><option value="">Seleccionar pedido...</option>${sinLlegar.map(p=>`<option value="${p.numero}">${p.numero} — ${p.aceite} (${p.cantidad}L)${p.nroSolicitud?' · SC:'+p.nroSolicitud:''}</option>`).join('')}</select></div>
       <div class="fg"><label>Cantidad recibida (litros)</label><input type="number" id="ll_cant" placeholder="Confirmá cantidad" min="1"></div>
     </div>
-    <div class="brow"><button class="btn suc" onclick="marcarLlegado()">✓ Marcar llegado y actualizar stock</button></div>
+    <div class="brow"><button class="btn suc" onclick="marcarLlegado()">✅ Marcar llegado y actualizar stock</button></div>
     <div id="ll_msg"></div>
   </div>
 
-  ${conSC.length>0?`
   <div class="card">
-    <div class="card-title">Pedidos con solicitud — esperando llegada</div>
+    <div class="card-header"><div class="card-title">➕ Agregar stock manual (sin pedido)</div></div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Para aceites que llegaron por otra vía o que no estaban en un pedido pendiente.</p>
+    <div class="fgrid3">
+      <div class="fg"><label>Tipo de aceite</label><select id="sm_aceite">${aceiteOpts()}</select></div>
+      <div class="fg"><label>Cantidad a agregar (litros)</label><input type="number" id="sm_cant" placeholder="100" min="1"></div>
+      <div class="fg"><label>Motivo / Procedencia</label><input type="text" id="sm_motivo" placeholder="Compra directa, donación..."></div>
+    </div>
+    <div class="brow"><button class="btn wrn" onclick="agregarStockManual()">📦 Agregar al stock</button></div>
+    <div id="sm_msg"></div>
+  </div>
+
+  ${conSC.length>0?`<div class="card">
+    <div class="card-header"><div class="card-title">⏳ Con solicitud — esperando llegada</div></div>
     <div class="tw"><table>
-      <tr><th>N°</th><th>Aceite</th><th>Cant (L)</th><th>Equipo</th><th>Interno</th><th>N° Solicitud</th><th>Observaciones</th></tr>
-      ${conSC.map(p=>`
-        <tr><td class="num">${p.numero}</td><td>${p.aceite}</td><td class="num">${p.cantidad}</td><td>${p.equipo}</td><td>${p.interno}</td><td class="num">${p.nroSolicitud}</td><td class="obs-cell">${p.observaciones||'-'}</td></tr>
-      `).join('')}
+      <thead><tr><th>N°</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>N° Solicitud</th><th>Obs.</th></tr></thead>
+      <tbody>${conSC.map(p=>`<tr><td class="mono accent">${p.numero}</td><td><b>${p.aceite}</b></td><td class="mono">${p.cantidad}L</td><td>${p.equipo}</td><td>${p.interno}</td><td><span class="pill sc">${p.nroSolicitud}</span></td><td class="obs-cell">${p.observaciones||'-'}</td></tr>`).join('')}</tbody>
     </table></div>
   </div>`:''}`;
 }
 
-window.mostrarDetSol = function() {
-  const p = S.pedidos.find(x=>x.numero===fv('sol_ped'));
-  document.getElementById('sol_det').innerHTML = p
-    ? `<b>${p.aceite}</b> — ${p.cantidad}L — Equipo: ${p.equipo} / Interno: ${p.interno}${p.observaciones?' — <i>'+p.observaciones+'</i>':''}`
-    : '';
-};
+window.detSol=function(){const p=S.pedidos.find(x=>x.numero===fv('sol_ped'));document.getElementById('sol_det').innerHTML=p?`<b>${p.aceite}</b> — ${p.cantidad}L — Equipo: ${p.equipo} / Interno: ${p.interno}${p.observaciones?' — <i>'+p.observaciones+'</i>':''}`:'';}
+window.guardarSolicitud=async function(){const num=fv('sol_ped'),sc=fv('sol_num').trim();if(!num||!sc){msg('sol_msg','err','Seleccioná el pedido e ingresá el nro de solicitud');return;}const idx=S.pedidos.findIndex(p=>p.numero===num);if(idx>=0)S.pedidos[idx].nroSolicitud=sc;msg('sol_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('sol_msg','suc',`✓ Solicitud ${sc} cargada al pedido ${num}`);setTimeout(()=>renderTab(2),1200);};
+window.marcarLlegado=async function(){const num=fv('ll_ped'),cant=parseInt(fv('ll_cant'));if(!num||!cant){msg('ll_msg','err','Seleccioná el pedido e ingresá la cantidad');return;}const idx=S.pedidos.findIndex(p=>p.numero===num);if(idx>=0){const p=S.pedidos[idx];p.estado='LLEGADO';p.cantRecibida=cant;S.stock[p.aceite]=(S.stock[p.aceite]||0)+cant;msg('ll_msg','inf','<div class="spinner"></div> Actualizando...');await guardar();msg('ll_msg','suc',`✓ Stock actualizado: ${p.aceite} +${cant}L`);setTimeout(()=>renderTab(2),1200);}};
+window.agregarStockManual=async function(){const aceite=fv('sm_aceite'),cant=parseInt(fv('sm_cant'));if(!aceite||!cant){msg('sm_msg','err','Seleccioná el aceite e ingresá la cantidad');return;}S.stock[aceite]=(S.stock[aceite]||0)+cant;msg('sm_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('sm_msg','suc',`✓ +${cant}L de ${aceite} agregados al stock`);setTimeout(()=>renderTab(2),1200);};
 
-window.guardarSolicitud = async function() {
-  const num = fv('sol_ped'), sc = fv('sol_num').trim();
-  if(!num||!sc) { alert('Seleccioná el pedido e ingresá el nro de solicitud'); return; }
-  const idx = S.pedidos.findIndex(p=>p.numero===num);
-  if(idx>=0) S.pedidos[idx].nroSolicitud = sc;
-  const msg = document.getElementById('sol_msg');
-  if(msg) msg.innerHTML = '<div class="alert inf" style="margin-top:10px"><div class="spinner"></div> Guardando...</div>';
-  await guardarDatos();
-  if(msg) msg.innerHTML = `<div class="alert suc" style="margin-top:10px">✓ Solicitud ${sc} cargada al pedido ${num}</div>`;
-  setTimeout(()=>renderTab(2), 1200);
-};
-
-window.marcarLlegado = async function() {
-  const num = fv('ll_ped'), cant = parseInt(fv('ll_cant'));
-  if(!num||!cant) { alert('Seleccioná el pedido e ingresá la cantidad recibida'); return; }
-  const idx = S.pedidos.findIndex(p=>p.numero===num);
-  if(idx>=0) {
-    const p = S.pedidos[idx];
-    p.estado = 'LLEGADO'; p.cantRecibida = cant;
-    S.stock[p.aceite] = (S.stock[p.aceite]||0) + cant;
-    const msg = document.getElementById('ll_msg');
-    if(msg) msg.innerHTML = '<div class="alert inf" style="margin-top:10px"><div class="spinner"></div> Actualizando stock...</div>';
-    await guardarDatos();
-    if(msg) msg.innerHTML = `<div class="alert suc" style="margin-top:10px">✓ Stock actualizado: ${p.aceite} +${cant}L</div>`;
-    setTimeout(()=>renderTab(2), 1200);
-  }
-};
-
-// ── CONSUMOS ──────────────────────────────────────────────
-function renderConsumos() {
-  const hoy = new Date().toISOString().split('T')[0];
-  return `
-  <div class="card">
-    <div class="card-title">Registrar consumo</div>
-    <div class="fgrid3">
+// CONSUMOS
+function rConsumos(){
+  const hoy=new Date().toISOString().split('T')[0];
+  return`<div class="card">
+    <div class="card-header"><div class="card-title">📉 Registrar consumo</div></div>
+    <div class="fgrid3" style="margin-bottom:14px">
       <div class="fg"><label>Fecha</label><input type="date" id="cn_fecha" value="${hoy}"></div>
-      <div class="fg"><label>Tipo de aceite</label>
-        <select id="cn_aceite"><option value="">Seleccionar...</option>${ACEITES.map(a=>`<option>${a}</option>`).join('')}</select>
-      </div>
+      <div class="fg"><label>Tipo de aceite</label><select id="cn_aceite">${aceiteOpts()}</select></div>
       <div class="fg"><label>Cantidad (litros)</label><input type="number" id="cn_cant" placeholder="50" min="1"></div>
       <div class="fg"><label>Equipo / Destino</label><input type="text" id="cn_equipo" placeholder="DD321"></div>
       <div class="fg"><label>Nro interno</label><input type="text" id="cn_interno" placeholder="1106"></div>
       <div class="fg"><label>Nombre trabajador</label><input type="text" id="cn_trab" placeholder="Apellido Nombre"></div>
     </div>
-    <div class="fg" style="margin-top:12px"><label>Observaciones</label>
-      <textarea id="cn_obs" placeholder="Observaciones del consumo..."></textarea>
-    </div>
-    <div class="brow"><button class="btn pri" onclick="guardarConsumo()">Registrar consumo</button></div>
+    <div class="fg"><label>Observaciones</label><textarea id="cn_obs" placeholder="Observaciones..."></textarea></div>
+    <div class="brow"><button class="btn pri" onclick="guardarConsumo()">💾 Registrar consumo</button></div>
     <div id="cn_msg"></div>
   </div>
   <div class="card">
-    <div class="card-title">Historial de consumos</div>
+    <div class="card-header"><div class="card-title">📜 Historial de consumos</div></div>
     <div class="tw"><table>
-      <tr><th>Fecha</th><th>Aceite</th><th>Cant (L)</th><th>Equipo</th><th>Interno</th><th>Trabajador</th><th>Obs.</th></tr>
-      ${S.consumos.length===0?`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text3)">Sin consumos registrados</td></tr>`:''}
-      ${S.consumos.slice().reverse().map(c=>`
-        <tr><td>${fmt(c.fecha)}</td><td>${c.aceite}</td><td class="num">${c.cantidad}</td><td>${c.equipo||'-'}</td><td>${c.interno||'-'}</td><td>${c.trabajador||'-'}</td><td class="obs-cell">${c.observaciones||'-'}</td></tr>
-      `).join('')}
+      <thead><tr><th>Fecha</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>Trabajador</th><th>Obs.</th></tr></thead>
+      <tbody>${S.consumos.length===0?`<tr><td colspan="7" style="text-align:center;padding:28px;color:var(--text3)">Sin consumos registrados</td></tr>`:S.consumos.slice().reverse().map(c=>`<tr><td>${fmt(c.fecha)}</td><td><b>${c.aceite}</b></td><td class="mono accent">${c.cantidad}L</td><td>${c.equipo||'-'}</td><td>${c.interno||'-'}</td><td>${c.trabajador||'-'}</td><td class="obs-cell">${c.observaciones||'-'}</td></tr>`).join('')}</tbody>
     </table></div>
   </div>`;
 }
 
-window.guardarConsumo = async function() {
-  if(!fv('cn_aceite')||!fv('cn_cant')) { alert('Seleccioná el aceite y la cantidad'); return; }
-  const cant = parseInt(fv('cn_cant')), aceite = fv('cn_aceite');
-  const stockAct = S.stock[aceite]||0;
-  if(cant>stockAct && !confirm(`Stock disponible de ${aceite}: ${stockAct}L. ¿Registrar igualmente?`)) return;
-  S.consumos.push({
-    fecha:fv('cn_fecha'), aceite, cantidad:cant,
-    equipo:fv('cn_equipo'), interno:fv('cn_interno'),
-    trabajador:fv('cn_trab'), observaciones:fv('cn_obs')
-  });
-  S.stock[aceite] = Math.max(0, (S.stock[aceite]||0) - cant);
-  const msg = document.getElementById('cn_msg');
-  if(msg) msg.innerHTML = '<div class="alert inf" style="margin-top:10px"><div class="spinner"></div> Guardando...</div>';
-  await guardarDatos();
-  if(msg) msg.innerHTML = '<div class="alert suc" style="margin-top:10px">✓ Consumo registrado. Stock actualizado.</div>';
-  setTimeout(()=>renderTab(3), 1200);
-};
+window.guardarConsumo=async function(){if(!fv('cn_aceite')||!fv('cn_cant')){msg('cn_msg','err','Seleccioná el aceite y la cantidad');return;}const cant=parseInt(fv('cn_cant')),aceite=fv('cn_aceite'),sa=S.stock[aceite]||0;if(cant>sa&&!confirm(`Stock disponible de ${aceite}: ${sa}L. ¿Registrar igualmente?`))return;S.consumos.push({fecha:fv('cn_fecha'),aceite,cantidad:cant,equipo:fv('cn_equipo'),interno:fv('cn_interno'),trabajador:fv('cn_trab'),observaciones:fv('cn_obs')});S.stock[aceite]=Math.max(0,(S.stock[aceite]||0)-cant);msg('cn_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('cn_msg','suc','✓ Consumo registrado y stock actualizado');setTimeout(()=>renderTab(3),1200);};
 
-// ── STOCK ─────────────────────────────────────────────────
-function renderStock() {
-  const entries = Object.entries(S.stock).sort((a,b)=>a[0].localeCompare(b[0]));
-  return `
-  <div class="card">
-    <div class="card-title">
-      <span>Stock actual (litros)</span>
-      ${S.user==='ingeniero'?`<button class="btn ghost" style="height:28px;font-size:12px" onclick="mostrarAjuste()">Ajuste manual</button>`:''}
+// STOCK
+function rStock(){
+  const entries=Object.entries(S.stock).sort((a,b)=>a[0].localeCompare(b[0]));
+  const bajo=entries.filter(([,v])=>v>0&&v<40).length;
+  const cero=entries.filter(([,v])=>v===0).length;
+  return`<div class="card">
+    <div class="card-header">
+      <div class="card-title">📦 Stock actual de aceites</div>
+      ${S.user==='ingeniero'?`<button class="btn ghost sm" onclick="toggleNuevoAceite()">➕ Nuevo aceite</button>`:''}
     </div>
-    <div id="ajuste_form"></div>
+    ${bajo>0||cero>0?`<div class="alert wrn" style="margin-bottom:16px">⚠️ ${cero} sin stock · ${bajo} con stock bajo (menos de 40L)</div>`:''}
+    <div id="nuevo_aceite_form"></div>
     <div class="tw"><table>
-      <tr><th>Tipo de aceite</th><th>Stock (L)</th><th>Estado</th></tr>
-      ${entries.map(([k,v])=>`
-        <tr>
-          <td>${k}</td>
-          <td class="${v===0?'s-zero':v<50?'s-low':'s-ok'}">${v}</td>
-          <td>${v===0?'<span class="st p">Sin stock</span>':v<50?'<span class="st p">Stock bajo</span>':'<span class="st l">OK</span>'}</td>
-        </tr>
-      `).join('')}
+      <thead><tr><th>Tipo de aceite</th><th>Stock (L)</th><th>Estado</th>${S.user==='ingeniero'?'<th>Editar</th>':''}</tr></thead>
+      <tbody id="stBody">
+      ${entries.map(([k,v],i)=>`
+        <tr class="${v===0?'row-zero':v<40?'row-low':''}">
+          <td><b>${k}</b></td>
+          <td id="sv_${i}"><span class="${v===0?'s-zero':v<40?'s-low':'s-ok'}">${v}L</span></td>
+          <td>${v===0?'<span class="sbadge zero">🚨 Sin stock</span>':v<40?'<span class="sbadge low">⚠️ Bajo</span>':'<span class="sbadge ok">✓ OK</span>'}</td>
+          ${S.user==='ingeniero'?`<td id="se_${i}"><button class="btn ghost sm" onclick="editStock('${k.replace(/'/g,"\\'")}',${i})">✏️ Editar</button></td>`:''}
+        </tr>`).join('')}
+      </tbody>
     </table></div>
+    <div id="stock_msg"></div>
   </div>`;
 }
 
-window.mostrarAjuste = function() {
-  document.getElementById('ajuste_form').innerHTML = `
-    <div style="background:var(--bg3);padding:14px;border-radius:var(--radius);margin-bottom:16px;border:1px solid var(--border)">
-      <div class="fgrid" style="margin-bottom:12px">
-        <div class="fg"><label>Tipo de aceite</label>
-          <select id="adj_aceite"><option value="">Seleccionar...</option>${ACEITES.map(a=>`<option>${a}</option>`).join('')}</select>
-        </div>
-        <div class="fg"><label>Nuevo stock (litros)</label><input type="number" id="adj_val" min="0" placeholder="0"></div>
-      </div>
-      <div class="brow">
-        <button class="btn pri" onclick="confirmarAjuste()">Confirmar ajuste</button>
-        <button class="btn ghost" onclick="document.getElementById('ajuste_form').innerHTML=''">Cancelar</button>
-      </div>
-    </div>`;
+window.toggleNuevoAceite=function(){const f=document.getElementById('nuevo_aceite_form');if(f.innerHTML){f.innerHTML='';return;}f.innerHTML=`
+  <div class="form-section" style="margin-bottom:16px">
+    <div class="form-section-title">Agregar nuevo tipo de aceite</div>
+    <div class="fgrid">
+      <div class="fg"><label>Nombre del aceite</label><input type="text" id="na_nom" placeholder="Ej: ACEITE NUEVO 20W50"></div>
+      <div class="fg"><label>Stock inicial (litros)</label><input type="number" id="na_cant" placeholder="0" min="0"></div>
+    </div>
+    <div class="brow">
+      <button class="btn pri" onclick="agregarAceite()">➕ Agregar</button>
+      <button class="btn ghost" onclick="document.getElementById('nuevo_aceite_form').innerHTML=''">Cancelar</button>
+    </div>
+  </div>`;};
+
+window.agregarAceite=async function(){const nom=fv('na_nom').trim().toUpperCase(),cant=parseInt(fv('na_cant'))||0;if(!nom){msg('stock_msg','err','Ingresá el nombre del aceite');return;}if(S.stock[nom]!==undefined){msg('stock_msg','err','Ya existe un aceite con ese nombre');return;}S.stock[nom]=cant;msg('stock_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('stock_msg','suc',`✓ ${nom} agregado con ${cant}L`);setTimeout(()=>renderTab(4),1200);};
+
+window.editStock=function(nombre,i){
+  const td=document.getElementById(`sv_${i}`);const btn=document.getElementById(`se_${i}`);
+  if(!td||!btn)return;
+  td.innerHTML=`<input class="edit-inp" id="ev_${i}" type="number" value="${S.stock[nombre]||0}" min="0" onkeydown="if(event.key==='Enter')saveStock('${nombre.replace(/'/g,"\\'")}',${i})">`;
+  btn.innerHTML=`<button class="btn suc sm" onclick="saveStock('${nombre.replace(/'/g,"\\'")}',${i})">✓ OK</button>`;
+  document.getElementById(`ev_${i}`)?.select();
 };
 
-window.confirmarAjuste = async function() {
-  const aceite = fv('adj_aceite'), val = parseInt(fv('adj_val'));
-  if(!aceite||isNaN(val)) { alert('Completá los campos'); return; }
-  S.stock[aceite] = val;
-  await guardarDatos();
-  alert(`✓ Stock de ${aceite} ajustado a ${val}L`);
-  renderTab(4);
-};
-
+window.saveStock=async function(nombre,i){const inp=document.getElementById(`ev_${i}`);if(!inp)return;const val=parseInt(inp.value);if(isNaN(val)||val<0){alert('Valor inválido');return;}S.stock[nombre]=val;msg('stock_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('stock_msg','suc',`✓ ${nombre} actualizado a ${val}L`);setTimeout(()=>renderTab(4),1000);};
 </script>
 </body>
 </html>
