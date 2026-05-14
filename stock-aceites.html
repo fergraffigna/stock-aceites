@@ -354,29 +354,81 @@ function rPedidos(){
   </div>`;
 }
 
+// ── ITEMS DE ACEITE (estado local del formulario) ─────────
+let npItems=[];
+function renderItems(){
+  const wrap=document.getElementById('items_wrap');if(!wrap)return;
+  if(npItems.length===0){wrap.innerHTML='<div style="color:var(--text3);font-size:13px;padding:12px 0">Todavía no agregaste ningún aceite. Usá el formulario de arriba.</div>';return;}
+  wrap.innerHTML=npItems.map((it,i)=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px">
+      <div style="flex:1">
+        <span style="font-weight:600;font-size:13px">${it.aceite}</span>
+        <span style="margin-left:10px;font-family:var(--mono);color:var(--accent);font-weight:600">${it.cantidad}L</span>
+      </div>
+      <button class="btn dan sm" onclick="quitarItem(${i})">✕</button>
+    </div>`).join('');
+}
+
+window.quitarItem=function(i){npItems.splice(i,1);renderItems();};
+
+window.agregarItem=function(){
+  const aceite=fv('np_aceite'),cant=parseInt(fv('np_cant'));
+  if(!aceite){msg('item_msg','err','Seleccioná un tipo de aceite');return;}
+  if(!cant||cant<1){msg('item_msg','err','Ingresá una cantidad válida');return;}
+  if(npItems.find(it=>it.aceite===aceite)){msg('item_msg','err','Ese aceite ya está en el pedido — modificá la cantidad si querés cambiarlo');return;}
+  npItems.push({aceite,cantidad:cant});
+  // limpiar campos de aceite/cant
+  document.getElementById('np_aceite').value='';
+  document.getElementById('np_cant').value='';
+  document.getElementById('item_msg').innerHTML='';
+  renderItems();
+};
+
 // NUEVO PEDIDO
 function rNuevo(){
+  npItems=[];
   const hoy=new Date().toISOString().split('T')[0];
   return`<div class="card">
     <div class="card-header"><div class="card-title">➕ Nuevo pedido</div><span class="mono accent" style="font-size:16px;font-weight:700">${nextNum()}</span></div>
+
     <div class="form-section">
-      <div class="form-section-title">Datos del aceite</div>
+      <div class="form-section-title">Equipo destino</div>
       <div class="fgrid3">
         <div class="fg"><label>Fecha</label><input type="date" id="np_fecha" value="${hoy}"></div>
-        <div class="fg"><label>Tipo de aceite</label><select id="np_aceite">${aceiteOpts()}</select></div>
-        <div class="fg"><label>Cantidad (litros)</label><input type="number" id="np_cant" placeholder="205" min="1"></div>
-      </div>
-    </div>
-    <div class="form-section">
-      <div class="form-section-title">Datos del equipo</div>
-      <div class="fgrid">
         <div class="fg"><label>Equipo destino</label><input type="text" id="np_equipo" placeholder="DD321"></div>
         <div class="fg"><label>Nro interno</label><input type="text" id="np_interno" placeholder="1106"></div>
-        <div class="fg"><label>Marca</label><input type="text" id="np_marca" placeholder="SANDVIK"></div>
-        <div class="fg"><label>Modelo</label><input type="text" id="np_modelo" placeholder="DD321"></div>
+        <div class="fg"><label>Marca del equipo</label><input type="text" id="np_marca" placeholder="TRAKKER / SANDVIK..."></div>
       </div>
     </div>
-    <div class="fg" style="margin-bottom:4px"><label>Observaciones</label><textarea id="np_obs" placeholder="Urgencia, notas adicionales..."></textarea></div>
+
+    <div class="form-section">
+      <div class="form-section-title">Aceites solicitados</div>
+      <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
+        <div class="fg" style="flex:2;min-width:200px"><label>Tipo de aceite</label><select id="np_aceite">${aceiteOpts()}</select></div>
+        <div class="fg" style="flex:1;min-width:120px"><label>Cantidad (litros)</label><input type="number" id="np_cant" placeholder="205" min="1"></div>
+        <button class="btn suc" style="flex-shrink:0;margin-bottom:0" onclick="agregarItem()">+ Agregar aceite</button>
+      </div>
+      <div id="item_msg"></div>
+      <div id="items_wrap"><div style="color:var(--text3);font-size:13px;padding:8px 0">Todavía no agregaste ningún aceite.</div></div>
+    </div>
+
+    <div class="fg" style="margin-bottom:12px"><label>Observaciones</label><textarea id="np_obs" placeholder="Urgencia, aclaraciones, contacto..."></textarea></div>
+
+    <div style="padding:10px 14px;background:var(--accent-light);border-radius:var(--radius-sm);border:1px solid rgba(37,99,235,.2);font-size:12px;color:var(--accent);margin-bottom:12px">
+      ℹ️ ¿El aceite que necesitás no está en la lista? <b style="cursor:pointer;text-decoration:underline" onclick="toggleAceiteRapido()">Agregalo acá</b>
+    </div>
+    <div id="aceite_rapido" style="display:none;margin-bottom:12px">
+      <div class="form-section" style="margin-bottom:0;margin-top:0">
+        <div class="form-section-title">Agregar nuevo aceite a la lista</div>
+        <div class="fgrid">
+          <div class="fg"><label>Nombre del aceite</label><input type="text" id="ar_nom" placeholder="Ej: ACEITE NUEVO 20W50"></div>
+          <div class="fg"><label>Stock inicial (litros)</label><input type="number" id="ar_cant" placeholder="0" min="0" value="0"></div>
+        </div>
+        <div class="brow"><button class="btn pri sm" onclick="agregarAceiteRapido()">➕ Agregar a la lista</button></div>
+        <div id="ar_msg"></div>
+      </div>
+    </div>
+
     <div class="brow">
       <button class="btn pri" onclick="guardarPedido()">💾 Guardar pedido</button>
       <button class="btn ghost" onclick="prevMail()">✉️ Generar mail Outlook</button>
@@ -386,23 +438,43 @@ function rNuevo(){
 }
 
 window.guardarPedido=async function(){
-  if(!fv('np_aceite')||!fv('np_cant')||!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá: aceite, cantidad, equipo e interno');return;}
+  if(!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá equipo e interno');return;}
+  if(npItems.length===0){msg('np_msg','err','Agregá al menos un aceite al pedido');return;}
   const num=nextNum();
-  S.pedidos.push({numero:num,fecha:fv('np_fecha'),aceite:fv('np_aceite'),cantidad:parseInt(fv('np_cant')),equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),modelo:fv('np_modelo'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''});
+  // guardamos un pedido por cada ítem pero todos con el mismo número de grupo
+  npItems.forEach(it=>{
+    S.pedidos.push({numero:num,fecha:fv('np_fecha'),aceite:it.aceite,cantidad:it.cantidad,equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''});
+  });
   S.counter++;
   msg('np_msg','inf','<div class="spinner"></div> Guardando...');
   await guardar();
-  msg('np_msg','suc',`✓ Pedido ${num} guardado y sincronizado`);
+  msg('np_msg','suc',`✓ Pedido ${num} guardado con ${npItems.length} aceite${npItems.length>1?'s':''}`);
+  npItems=[];
   setTimeout(()=>renderTab(2),1500);
 };
 
 window.prevMail=function(){
-  if(!fv('np_aceite')||!fv('np_cant')||!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá los campos para generar el mail');return;}
-  const num=nextNum(),obs=fv('np_obs');
-  const fechaStr=fv('np_fecha')?new Date(fv('np_fecha')+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'short'}):'-';
-  const body=`Buen día Jorge,\n\nFavor avanzar con solicitud de Fluidos,\n\nFECHA PEDIDO\tTIPO DE ACEITE\tCANTIDAD\tEQUIPO\tINTERNO\tPEDIDO N°\n${fechaStr}\t${fv('np_aceite')}\t${fv('np_cant')}\t${fv('np_equipo')}\t${fv('np_interno')}\t${num}\n\nSaludos,${obs?'\n\nObs: '+obs:''}`;
+  if(!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá equipo e interno');return;}
+  if(npItems.length===0){msg('np_msg','err','Agregá al menos un aceite para generar el mail');return;}
+  const num=nextNum(),obs=fv('np_obs'),marca=fv('np_marca')||fv('np_equipo');
+  const fechaStr=fv('np_fecha')?new Date(fv('np_fecha')+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'-';
+  const asunto=`Pedido de Fluidos p/ ${marca} INT ${fv('np_interno')} ${num}`;
+
+  // filas para el mail plano (mailto)
+  const filasMail=npItems.map((it,i)=>`  ${String(i+1).padEnd(4)}${it.aceite.padEnd(38)}${String(it.cantidad)+' litros'}`).join('\n');
+  const body=`Buen día Jorge,\n\nFavor avanzar con la siguiente solicitud de Fluidos:\n\n──────────────────────────────────────────────\n  DETALLE DEL PEDIDO\n──────────────────────────────────────────────\n\n  Nro de Pedido:     ${num}\n  Fecha:             ${fechaStr}\n  Equipo Destino:    ${fv('np_equipo')}\n  Nro Interno:       ${fv('np_interno')}\n  Marca Equipo:      ${marca}\n\n──────────────────────────────────────────────\n  #   TIPO DE ACEITE                         CANTIDAD\n──────────────────────────────────────────────\n${filasMail}\n──────────────────────────────────────────────\n${obs?'\n  Observaciones:\n  '+obs+'\n\n──────────────────────────────────────────────\n':''}\nQuedo a disposición ante cualquier consulta.\n\nSaludos,`;
+
   const to='jorgesteiner@ecominera.com.ar',cc='guillermocorrea@ecominera.com.ar;alejandrofernandez@ecominera.com.ar;PASANTECRE@ecominera.com.ar;danielfernandez@ecominera.com.ar';
-  const link=`mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent('Solicitud de Fluidos - '+num+' - '+fv('np_aceite'))}&body=${encodeURIComponent(body)}`;
+  const link=`mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(body)}`;
+
+  // tabla visual HTML para la preview
+  const filasHTML=npItems.map((it,i)=>`
+    <tr style="border-bottom:1px solid #e2e8f4">
+      <td style="padding:8px 12px;color:#5a6a85;font-family:monospace;font-size:12px">${i+1}</td>
+      <td style="padding:8px 12px;font-weight:600;font-size:13px">${it.aceite}</td>
+      <td style="padding:8px 12px;font-family:monospace;font-weight:700;color:#2563eb;font-size:13px">${it.cantidad} L</td>
+    </tr>`).join('');
+
   document.getElementById('mailArea').innerHTML=`
     <div class="divider"></div>
     <div class="alert suc">✓ Mail generado — hacé clic en "Abrir en Outlook"</div>
@@ -410,21 +482,54 @@ window.prevMail=function(){
       <div class="mail-head">
         <div class="mail-row"><span class="lbl">Para:</span><span class="val">jorgesteiner@ecominera.com.ar</span></div>
         <div class="mail-row"><span class="lbl">CC:</span><span class="val">guillermocorrea@; alejandrofernandez@; PASANTECRE@; danielfernandez@ecominera.com.ar</span></div>
-        <div class="mail-row"><span class="lbl">Asunto:</span><span class="val">Solicitud de Fluidos - ${num} - ${fv('np_aceite')}</span></div>
+        <div class="mail-row"><span class="lbl">Asunto:</span><span class="val"><b>${asunto}</b></span></div>
       </div>
-      <div class="mail-body">Buen día Jorge,
-
-Favor avanzar con solicitud de Fluidos,
-
-<span class="hl">FECHA         TIPO DE ACEITE                      CANT    EQUIPO    INTERNO   N° PEDIDO
-${fechaStr.padEnd(14)}${fv('np_aceite').padEnd(36)}${fv('np_cant').padEnd(8)}${fv('np_equipo').padEnd(10)}${fv('np_interno').padEnd(10)}${num}</span>
-
-Saludos,${obs?'\n\nObs: '+obs:''}</div>
+      <div style="padding:18px;background:var(--bg2);font-size:13px;line-height:1.8;color:var(--text2)">
+        <p style="margin-bottom:12px">Buen día Jorge,</p>
+        <p style="margin-bottom:16px">Favor avanzar con la siguiente solicitud de Fluidos:</p>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;font-size:12px;margin-bottom:14px">
+            <div><span style="color:var(--text3);font-weight:600">NRO DE PEDIDO</span><br><span style="font-family:monospace;font-weight:700;color:var(--accent);font-size:14px">${num}</span></div>
+            <div><span style="color:var(--text3);font-weight:600">FECHA</span><br><span style="font-weight:600;color:var(--text)">${fechaStr}</span></div>
+            <div><span style="color:var(--text3);font-weight:600">EQUIPO DESTINO</span><br><span style="font-weight:600;color:var(--text)">${fv('np_equipo')}</span></div>
+            <div><span style="color:var(--text3);font-weight:600">NRO INTERNO</span><br><span style="font-weight:600;color:var(--text)">${fv('np_interno')}</span></div>
+            <div><span style="color:var(--text3);font-weight:600">MARCA EQUIPO</span><br><span style="font-weight:600;color:var(--text)">${marca}</span></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Aceites solicitados</div>
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <thead><tr style="background:var(--border);border-radius:4px">
+              <th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">#</th>
+              <th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">TIPO DE ACEITE</th>
+              <th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">CANTIDAD</th>
+            </tr></thead>
+            <tbody>${filasHTML}</tbody>
+          </table>
+        </div>
+        ${obs?`<div style="background:var(--yellow-bg);border:1px solid var(--yellow-border);border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px"><b style="color:var(--yellow)">Observaciones:</b> <span style="color:var(--text)">${obs}</span></div>`:''}
+        <p style="color:var(--text2)">Quedo a disposición ante cualquier consulta.</p>
+        <p style="margin-top:8px;color:var(--text2)">Saludos,</p>
+      </div>
     </div>
     <div class="brow"><a href="${link}" class="btn pri">✉️ Abrir en Outlook</a></div>`;
 };
 
 window.borrarPedido=async function(i){if(!confirm('¿Eliminar este pedido?'))return;S.pedidos.splice(i,1);await guardar();renderTab(1);};
+
+window.toggleAceiteRapido=function(){const d=document.getElementById('aceite_rapido');if(d)d.style.display=d.style.display==='none'?'block':'none';};
+
+window.agregarAceiteRapido=async function(){
+  const nom=fv('ar_nom').trim().toUpperCase(),cant=parseInt(fv('ar_cant'))||0;
+  if(!nom){msg('ar_msg','err','Ingresá el nombre del aceite');return;}
+  if(S.stock[nom]!==undefined){msg('ar_msg','err','Ya existe ese aceite en la lista');return;}
+  S.stock[nom]=cant;
+  msg('ar_msg','inf','<div class="spinner"></div> Guardando...');
+  await guardar();
+  msg('ar_msg','suc',`✓ "${nom}" agregado a la lista`);
+  // actualizar el select sin recargar la página
+  const sel=document.getElementById('np_aceite');
+  if(sel){const opt=document.createElement('option');opt.text=nom;opt.value=nom;sel.appendChild(opt);sel.value=nom;}
+  document.getElementById('aceite_rapido').style.display='none';
+};
 
 // SOLICITUDES
 function rSolicitudes(){
