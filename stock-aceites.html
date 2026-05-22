@@ -19,8 +19,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
-
-/* LOGIN */
 .login-page{min-height:100vh;display:flex;align-items:stretch}
 .login-left{flex:0 0 400px;background:linear-gradient(145deg,#1e3a6e 0%,#2563eb 60%,#3b82f6 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
 .login-left::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(255,255,255,.06) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,255,255,.08) 0%,transparent 50%)}
@@ -51,8 +49,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .login-btn:disabled{opacity:.6;transform:none;cursor:default}
 .login-err{color:var(--red);font-size:12px;margin-top:10px;text-align:center;min-height:18px;font-weight:500}
 @media(max-width:720px){.login-page{flex-direction:column}.login-left{flex:none;min-height:180px;padding:28px}.ll-features{display:none}.login-right{padding:28px 20px}}
-
-/* HEADER */
 .header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(0,0,0,.06)}
 .h-brand{display:flex;align-items:center;gap:12px}
 .h-brand .logo{font-size:22px}
@@ -66,34 +62,21 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .hbtn:hover{border-color:var(--border2);color:var(--text);background:var(--bg3)}
 .hbtn.sync{color:var(--accent);border-color:rgba(37,99,235,.25)}
 .hbtn.sync:hover{background:var(--accent-light)}
-
-/* TABS */
 .tabs{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 24px}
 .tab{padding:14px 18px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;color:var(--text2);transition:all .15s;display:flex;align-items:center;gap:7px}
 .tab:hover:not(.active){color:var(--text)}
 .tab.active{border-bottom-color:var(--accent);color:var(--accent)}
-
-/* CONTENT */
 .content{padding:24px;max-width:1300px;margin:0 auto}
-
-/* CARDS */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .card-title{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;display:flex;align-items:center;gap:8px}
-
-/* METRICS */
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:20px}
 .metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .metric .m-accent{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:4px 0 0 4px}
-.metric.mb .m-accent{background:var(--accent)}
-.metric.mg .m-accent{background:var(--green)}
-.metric.my .m-accent{background:var(--yellow)}
-.metric.mr .m-accent{background:var(--red)}
+.metric.mb .m-accent{background:var(--accent)}.metric.mg .m-accent{background:var(--green)}.metric.my .m-accent{background:var(--yellow)}.metric.mr .m-accent{background:var(--red)}
 .metric .m-icon{font-size:22px;margin-bottom:12px}
 .metric .val{font-size:30px;font-weight:700;font-family:var(--mono);color:var(--text);line-height:1}
 .metric .lbl{font-size:11px;color:var(--text2);margin-top:6px;font-weight:600}
-
-/* FORMS */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .fg{display:flex;flex-direction:column;gap:6px}
@@ -102,8 +85,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--accent);background:var(--bg2);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
 .fg textarea{min-height:64px;resize:vertical}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--text3)}
-
-/* BUTTONS */
 .btn{height:38px;padding:0 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s;display:inline-flex;align-items:center;gap:6px}
 .btn.pri{background:var(--accent);color:#fff;border:none;box-shadow:0 2px 8px rgba(37,99,235,.2)}
 .btn.pri:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,99,235,.3)}
@@ -117,15 +98,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .btn.ghost:hover{border-color:var(--border2);color:var(--text);background:var(--bg3)}
 .btn.sm{height:30px;padding:0 12px;font-size:12px}
 .brow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
-
-/* ALERTS */
 .alert{padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1.5px solid}
 .alert.suc{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
 .alert.wrn{background:var(--yellow-bg);color:var(--yellow);border-color:var(--yellow-border)}
 .alert.inf{background:var(--accent-light);color:var(--accent);border-color:rgba(37,99,235,.2)}
 .alert.err{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
-
-/* TABLE */
 .tw{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse;font-size:13px}
 thead{background:var(--bg3)}
@@ -136,18 +113,11 @@ tbody tr:hover td{background:rgba(37,99,235,.02)}
 .obs-cell{max-width:180px;font-size:12px;color:var(--text2);white-space:normal;word-break:break-word}
 .mono{font-family:var(--mono);font-weight:500}
 .accent{color:var(--accent)}
-
-/* PILLS */
 .pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px}
 .pill::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.pill.pend{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
-.pill.pend::before{background:var(--yellow)}
-.pill.lleg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
-.pill.lleg::before{background:var(--green)}
-.pill.sc{background:var(--accent-light);color:var(--accent);border:1px solid rgba(37,99,235,.2)}
-.pill.sc::before{background:var(--accent)}
-
-/* STOCK */
+.pill.pend{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}.pill.pend::before{background:var(--yellow)}
+.pill.lleg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}.pill.lleg::before{background:var(--green)}
+.pill.sc{background:var(--accent-light);color:var(--accent);border:1px solid rgba(37,99,235,.2)}.pill.sc::before{background:var(--accent)}
 .s-ok{color:var(--green);font-family:var(--mono);font-weight:700}
 .s-low{color:var(--yellow);font-family:var(--mono);font-weight:700}
 .s-zero{color:var(--red);font-family:var(--mono);font-weight:700}
@@ -157,21 +127,30 @@ tbody tr:hover td{background:rgba(37,99,235,.02)}
 .sbadge.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .sbadge.low{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
 .sbadge.zero{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
-
-/* MAIL */
 .mail-wrap{margin-top:16px;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .mail-head{background:var(--bg3);padding:14px 18px;border-bottom:1px solid var(--border)}
 .mail-row{font-size:12px;padding:3px 0;display:flex;gap:8px}
 .mail-row .lbl{color:var(--text2);font-weight:700;min-width:62px;flex-shrink:0}
 .mail-row .val{color:var(--text)}
-.mail-body{padding:18px;font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--text2);background:var(--bg2);white-space:pre-wrap}
-.mail-body .hl{color:var(--text);font-weight:500}
-
-/* INLINE EDIT */
 .edit-inp{width:90px;padding:5px 8px;border:1.5px solid var(--accent);border-radius:var(--radius-sm);font-size:13px;font-family:var(--mono);font-weight:600;background:var(--bg2);color:var(--text)}
 .edit-inp:focus{outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
-
-/* MISC */
+/* GESTIÓN ACEITES */
+.aceite-row{display:grid;grid-template-columns:1fr auto auto;align-items:start;gap:12px;padding:12px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;transition:border-color .15s}
+.aceite-row:hover{border-color:var(--border2)}
+.aceite-row-nombre{font-weight:700;font-size:13px;color:var(--text);padding-top:4px}
+.aceite-row-stock{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);padding-top:6px;text-align:right;white-space:nowrap}
+.aceite-row-btns{display:flex;gap:6px;flex-shrink:0}
+.rename-form{display:none;margin-top:10px;padding:10px 12px;background:var(--accent-light);border:1.5px solid rgba(37,99,235,.2);border-radius:var(--radius-sm);gap:8px;align-items:center;flex-wrap:wrap}
+.rename-form input{flex:1;min-width:180px;padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font);background:var(--bg2);color:var(--text)}
+.rename-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+/* FILTRO HISTORIAL */
+.filter-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;padding:12px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.filter-bar label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.filter-bar input{padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font);background:var(--bg2);color:var(--text);width:180px;transition:all .15s}
+.filter-bar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.filter-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--accent-light);border:1px solid rgba(37,99,235,.25);border-radius:100px;font-size:11px;font-weight:700;color:var(--accent)}
+.filter-clear{background:none;border:none;cursor:pointer;color:var(--accent);font-size:14px;font-weight:700;padding:0;line-height:1;opacity:.7}
+.filter-clear:hover{opacity:1}
 .spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 .divider{height:1px;background:var(--border);margin:20px 0}
@@ -182,7 +161,6 @@ a.btn{text-decoration:none}
 </head>
 <body>
 <div id="app">
-
 <!-- LOGIN -->
 <div id="loginPage" class="login-page">
   <div class="login-left">
@@ -204,14 +182,10 @@ a.btn{text-decoration:none}
       <p class="sub">Seleccioná tu perfil e ingresá tu contraseña para acceder al sistema.</p>
       <div class="user-selector">
         <div class="user-opt sel" id="opt_ing" onclick="selectUser('ingeniero')">
-          <div class="u-icon">⚙️</div>
-          <div class="u-name">Ingeniero</div>
-          <div class="u-desc">Acceso completo</div>
+          <div class="u-icon">⚙️</div><div class="u-name">Ingeniero</div><div class="u-desc">Acceso completo</div>
         </div>
         <div class="user-opt" id="opt_pan" onclick="selectUser('pañolero')">
-          <div class="u-icon">📋</div>
-          <div class="u-name">Pañolero</div>
-          <div class="u-desc">Solicitudes y stock</div>
+          <div class="u-icon">📋</div><div class="u-name">Pañolero</div><div class="u-desc">Solicitudes y stock</div>
         </div>
       </div>
       <div class="lf">
@@ -226,7 +200,6 @@ a.btn{text-decoration:none}
     </div>
   </div>
 </div>
-
 <!-- MAIN -->
 <div id="mainApp" style="display:none">
   <div class="header">
@@ -258,6 +231,7 @@ const ACEITES_BASE=["10W","10W30 MOTOR","10W30 TRX (UTTO)","10W40 MOTOR","15W40 
 const STOCK_INI={"15W40 MOTOR":155,"10W40 MOTOR":200,"10W30 MOTOR":580,"10W30 TRX (UTTO)":205,"80W90 TRX HIPOIDAL":730,"85W140":480,"75W80":220,"80W":100,"SAE 30 TRX":65,"SAE 30 CONVERTIDOR":100,"SAE 50":20,"SUPER 50":600,"SUPER 10W":0,"FT SUPER 30":200,"HIDRAULICO BP 68 (YPF)":975,"HIDRAULICO BP 46 (YPF)":0,"HIDRAULICO TELLUS S2V68":0,"HIDRAULICO 10W":0,"TELLUS 32V HIDRAULICO":260,"TELLUS AIR TOOL S2A":400,"TRASMISION SPIRAX S4 CX 30":0,"ATF":303,"BP 32":1040,"CORENA S4 R 32 COMPRESOR":5,"AZOLLA ZS 32 COMPRESOR":0,"REFRIGERANTE RED":70,"REFRIGERANTE GREEN":30,"PARAFLU RED ANTICONGELANTE":275,"ANTICONGELANTE HEAVY DUTY TIPO A":300,"GRASA V220":200,"10W":400,"TELLUS S2 M 32":200,"TELLUS S2 M 68":200};
 
 let S={user:null,tab:0,sel:'ingeniero',pedidos:[],consumos:[],stock:{},counter:27};
+let _filtroInterno='';
 
 async function fbGet(id){try{const s=await getDoc(doc(db,'aceites',id));return s.exists()?s.data().value:null;}catch{return null;}}
 async function fbSet(id,v){try{await setDoc(doc(db,'aceites',id),{value:v});}catch(e){console.error(e);}}
@@ -290,24 +264,23 @@ window.doLogin=async function(){
   buildTabs();renderTab(0);
 };
 
-window.logout=function(){S.user=null;document.getElementById('loginPage').style.display='flex';document.getElementById('mainApp').style.display='none';document.getElementById('loginPass').value='';document.getElementById('loginLoading').style.display='none';document.getElementById('loginBtn').disabled=false;};
+window.logout=function(){S.user=null;_filtroInterno='';document.getElementById('loginPage').style.display='flex';document.getElementById('mainApp').style.display='none';document.getElementById('loginPass').value='';document.getElementById('loginLoading').style.display='none';document.getElementById('loginBtn').disabled=false;};
 
 window.sincronizar=async function(){const b=document.querySelector('.hbtn.sync');if(b)b.textContent='↺ Actualizando...';await cargar();renderTab(S.tab);if(b)b.textContent='↺ Sincronizar';};
 
 function buildTabs(){
   const tabs=S.user==='ingeniero'
-    ?[['📊','Resumen'],['📋','Pedidos'],['➕','Nuevo pedido'],['📉','Consumos'],['📦','Stock']]
+    ?[['📊','Resumen'],['📋','Pedidos'],['➕','Nuevo pedido'],['📉','Consumos'],['📦','Stock'],['⚙️','Aceites']]
     :[['📊','Resumen'],['📋','Pedidos'],['✅','Solicitudes'],['📉','Consumos'],['📦','Stock']];
   document.getElementById('tabsRow').innerHTML=tabs.map(([ic,t],i)=>`<div class="tab${i===0?' active':''}" onclick="renderTab(${i})">${ic} ${t}</div>`).join('');
 }
 function setTab(i){document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));}
 window.renderTab=function(i){
   S.tab=i;setTab(i);
-  const tabs=S.user==='ingeniero'?[rResumen,rPedidos,rNuevo,rConsumos,rStock]:[rResumen,rPedidos,rSolicitudes,rConsumos,rStock];
+  const tabs=S.user==='ingeniero'?[rResumen,rPedidos,rNuevo,rConsumos,rStock,rGestionAceites]:[rResumen,rPedidos,rSolicitudes,rConsumos,rStock];
   document.getElementById('mainContent').innerHTML=tabs[i]();
 };
 
-// RESUMEN
 function rResumen(){
   const pend=S.pedidos.filter(p=>p.estado==='PENDIENTE').length;
   const sinSC=S.pedidos.filter(p=>!p.nroSolicitud&&p.estado==='PENDIENTE').length;
@@ -334,7 +307,6 @@ function rResumen(){
   </div>`;
 }
 
-// PEDIDOS
 function rPedidos(){
   return`<div class="card">
     <div class="card-header"><div class="card-title">📋 Todos los pedidos</div></div>
@@ -354,43 +326,34 @@ function rPedidos(){
   </div>`;
 }
 
-// ── ITEMS DE ACEITE (estado local del formulario) ─────────
 let npItems=[];
 function renderItems(){
   const wrap=document.getElementById('items_wrap');if(!wrap)return;
   if(npItems.length===0){wrap.innerHTML='<div style="color:var(--text3);font-size:13px;padding:12px 0">Todavía no agregaste ningún aceite. Usá el formulario de arriba.</div>';return;}
   wrap.innerHTML=npItems.map((it,i)=>`
     <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px">
-      <div style="flex:1">
-        <span style="font-weight:600;font-size:13px">${it.aceite}</span>
-        <span style="margin-left:10px;font-family:var(--mono);color:var(--accent);font-weight:600">${it.cantidad}L</span>
-      </div>
+      <div style="flex:1"><span style="font-weight:600;font-size:13px">${it.aceite}</span><span style="margin-left:10px;font-family:var(--mono);color:var(--accent);font-weight:600">${it.cantidad}L</span></div>
       <button class="btn dan sm" onclick="quitarItem(${i})">✕</button>
     </div>`).join('');
 }
-
 window.quitarItem=function(i){npItems.splice(i,1);renderItems();};
-
 window.agregarItem=function(){
   const aceite=fv('np_aceite'),cant=parseInt(fv('np_cant'));
   if(!aceite){msg('item_msg','err','Seleccioná un tipo de aceite');return;}
   if(!cant||cant<1){msg('item_msg','err','Ingresá una cantidad válida');return;}
   if(npItems.find(it=>it.aceite===aceite)){msg('item_msg','err','Ese aceite ya está en el pedido — modificá la cantidad si querés cambiarlo');return;}
   npItems.push({aceite,cantidad:cant});
-  // limpiar campos de aceite/cant
   document.getElementById('np_aceite').value='';
   document.getElementById('np_cant').value='';
   document.getElementById('item_msg').innerHTML='';
   renderItems();
 };
 
-// NUEVO PEDIDO
 function rNuevo(){
   npItems=[];
   const hoy=new Date().toISOString().split('T')[0];
   return`<div class="card">
     <div class="card-header"><div class="card-title">➕ Nuevo pedido</div><span class="mono accent" style="font-size:16px;font-weight:700">${nextNum()}</span></div>
-
     <div class="form-section">
       <div class="form-section-title">Equipo destino</div>
       <div class="fgrid3">
@@ -400,7 +363,6 @@ function rNuevo(){
         <div class="fg"><label>Marca del equipo</label><input type="text" id="np_marca" placeholder="TRAKKER / SANDVIK..."></div>
       </div>
     </div>
-
     <div class="form-section">
       <div class="form-section-title">Aceites solicitados</div>
       <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
@@ -411,9 +373,7 @@ function rNuevo(){
       <div id="item_msg"></div>
       <div id="items_wrap"><div style="color:var(--text3);font-size:13px;padding:8px 0">Todavía no agregaste ningún aceite.</div></div>
     </div>
-
     <div class="fg" style="margin-bottom:12px"><label>Observaciones</label><textarea id="np_obs" placeholder="Urgencia, aclaraciones, contacto..."></textarea></div>
-
     <div style="padding:10px 14px;background:var(--accent-light);border-radius:var(--radius-sm);border:1px solid rgba(37,99,235,.2);font-size:12px;color:var(--accent);margin-bottom:12px">
       ℹ️ ¿El aceite que necesitás no está en la lista? <b style="cursor:pointer;text-decoration:underline" onclick="toggleAceiteRapido()">Agregalo acá</b>
     </div>
@@ -428,7 +388,6 @@ function rNuevo(){
         <div id="ar_msg"></div>
       </div>
     </div>
-
     <div class="brow">
       <button class="btn pri" onclick="guardarPedido()">💾 Guardar pedido</button>
       <button class="btn ghost" onclick="prevMail()">✉️ Generar mail Outlook</button>
@@ -441,10 +400,7 @@ window.guardarPedido=async function(){
   if(!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá equipo e interno');return;}
   if(npItems.length===0){msg('np_msg','err','Agregá al menos un aceite al pedido');return;}
   const num=nextNum();
-  // guardamos un pedido por cada ítem pero todos con el mismo número de grupo
-  npItems.forEach(it=>{
-    S.pedidos.push({numero:num,fecha:fv('np_fecha'),aceite:it.aceite,cantidad:it.cantidad,equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''});
-  });
+  npItems.forEach(it=>{S.pedidos.push({numero:num,fecha:fv('np_fecha'),aceite:it.aceite,cantidad:it.cantidad,equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''});});
   S.counter++;
   msg('np_msg','inf','<div class="spinner"></div> Guardando...');
   await guardar();
@@ -459,22 +415,11 @@ window.prevMail=function(){
   const num=nextNum(),obs=fv('np_obs'),marca=fv('np_marca')||fv('np_equipo');
   const fechaStr=fv('np_fecha')?new Date(fv('np_fecha')+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'-';
   const asunto=`Pedido de Fluidos p/ ${marca} INT ${fv('np_interno')} ${num}`;
-
-  // filas para el mail plano (mailto)
   const filasMail=npItems.map((it,i)=>`   ${i+1}.  ${it.aceite}\n       Cantidad: ${it.cantidad} litros`).join('\n\n');
   const body=`Buen día Jorge,\n\nFavor avanzar con la siguiente solicitud de Fluidos:\n\nPedido N°:   ${num}\nFecha:       ${fechaStr}\nEquipo:      ${fv('np_equipo')}  |  Interno: ${fv('np_interno')}  |  Marca: ${marca}\n\nAceites solicitados:\n\n${filasMail}\n${obs?'\nObservaciones:\n'+obs+'\n':''}\nSaludos,`;
-
   const to='jorgesteiner@ecominera.com.ar',cc='guillermocorrea@ecominera.com.ar;alejandrofernandez@ecominera.com.ar;PASANTECRE@ecominera.com.ar;danielfernandez@ecominera.com.ar';
   const link=`mailto:${to}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(body)}`;
-
-  // tabla visual HTML para la preview
-  const filasHTML=npItems.map((it,i)=>`
-    <tr style="border-bottom:1px solid #e2e8f4">
-      <td style="padding:8px 12px;color:#5a6a85;font-family:monospace;font-size:12px">${i+1}</td>
-      <td style="padding:8px 12px;font-weight:600;font-size:13px">${it.aceite}</td>
-      <td style="padding:8px 12px;font-family:monospace;font-weight:700;color:#2563eb;font-size:13px">${it.cantidad} L</td>
-    </tr>`).join('');
-
+  const filasHTML=npItems.map((it,i)=>`<tr style="border-bottom:1px solid #e2e8f4"><td style="padding:8px 12px;color:#5a6a85;font-family:monospace;font-size:12px">${i+1}</td><td style="padding:8px 12px;font-weight:600;font-size:13px">${it.aceite}</td><td style="padding:8px 12px;font-family:monospace;font-weight:700;color:#2563eb;font-size:13px">${it.cantidad} L</td></tr>`).join('');
   document.getElementById('mailArea').innerHTML=`
     <div class="divider"></div>
     <div class="alert suc">✓ Mail generado — hacé clic en "Abrir en Outlook"</div>
@@ -497,11 +442,7 @@ window.prevMail=function(){
           </div>
           <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Aceites solicitados</div>
           <table style="width:100%;border-collapse:collapse;font-size:13px">
-            <thead><tr style="background:var(--border);border-radius:4px">
-              <th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">#</th>
-              <th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">TIPO DE ACEITE</th>
-              <th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">CANTIDAD</th>
-            </tr></thead>
+            <thead><tr style="background:var(--border)"><th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">#</th><th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">TIPO DE ACEITE</th><th style="padding:6px 12px;text-align:left;font-size:11px;color:var(--text2);font-weight:700">CANTIDAD</th></tr></thead>
             <tbody>${filasHTML}</tbody>
           </table>
         </div>
@@ -514,9 +455,7 @@ window.prevMail=function(){
 };
 
 window.borrarPedido=async function(i){if(!confirm('¿Eliminar este pedido?'))return;S.pedidos.splice(i,1);await guardar();renderTab(1);};
-
 window.toggleAceiteRapido=function(){const d=document.getElementById('aceite_rapido');if(d)d.style.display=d.style.display==='none'?'block':'none';};
-
 window.agregarAceiteRapido=async function(){
   const nom=fv('ar_nom').trim().toUpperCase(),cant=parseInt(fv('ar_cant'))||0;
   if(!nom){msg('ar_msg','err','Ingresá el nombre del aceite');return;}
@@ -525,13 +464,11 @@ window.agregarAceiteRapido=async function(){
   msg('ar_msg','inf','<div class="spinner"></div> Guardando...');
   await guardar();
   msg('ar_msg','suc',`✓ "${nom}" agregado a la lista`);
-  // actualizar el select sin recargar la página
   const sel=document.getElementById('np_aceite');
   if(sel){const opt=document.createElement('option');opt.text=nom;opt.value=nom;sel.appendChild(opt);sel.value=nom;}
   document.getElementById('aceite_rapido').style.display='none';
 };
 
-// SOLICITUDES
 function rSolicitudes(){
   const sinSC=S.pedidos.filter(p=>p.estado==='PENDIENTE'&&!p.nroSolicitud);
   const conSC=S.pedidos.filter(p=>p.estado==='PENDIENTE'&&p.nroSolicitud);
@@ -548,7 +485,6 @@ function rSolicitudes(){
     <div class="brow"><button class="btn pri" onclick="guardarSolicitud()">💾 Guardar solicitud</button></div>
     <div id="sol_msg"></div>
   </div>
-
   <div class="card">
     <div class="card-header"><div class="card-title">🚚 Marcar pedido llegado</div></div>
     <div class="fgrid">
@@ -558,7 +494,6 @@ function rSolicitudes(){
     <div class="brow"><button class="btn suc" onclick="marcarLlegado()">✅ Marcar llegado y actualizar stock</button></div>
     <div id="ll_msg"></div>
   </div>
-
   <div class="card">
     <div class="card-header"><div class="card-title">➕ Agregar stock manual (sin pedido)</div></div>
     <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Para aceites que llegaron por otra vía o que no estaban en un pedido pendiente.</p>
@@ -570,7 +505,6 @@ function rSolicitudes(){
     <div class="brow"><button class="btn wrn" onclick="agregarStockManual()">📦 Agregar al stock</button></div>
     <div id="sm_msg"></div>
   </div>
-
   ${conSC.length>0?`<div class="card">
     <div class="card-header"><div class="card-title">⏳ Con solicitud — esperando llegada</div></div>
     <div class="tw"><table>
@@ -585,9 +519,23 @@ window.guardarSolicitud=async function(){const num=fv('sol_ped'),sc=fv('sol_num'
 window.marcarLlegado=async function(){const num=fv('ll_ped'),cant=parseInt(fv('ll_cant'));if(!num||!cant){msg('ll_msg','err','Seleccioná el pedido e ingresá la cantidad');return;}const idx=S.pedidos.findIndex(p=>p.numero===num);if(idx>=0){const p=S.pedidos[idx];p.estado='LLEGADO';p.cantRecibida=cant;S.stock[p.aceite]=(S.stock[p.aceite]||0)+cant;msg('ll_msg','inf','<div class="spinner"></div> Actualizando...');await guardar();msg('ll_msg','suc',`✓ Stock actualizado: ${p.aceite} +${cant}L`);setTimeout(()=>renderTab(2),1200);}};
 window.agregarStockManual=async function(){const aceite=fv('sm_aceite'),cant=parseInt(fv('sm_cant'));if(!aceite||!cant){msg('sm_msg','err','Seleccioná el aceite e ingresá la cantidad');return;}S.stock[aceite]=(S.stock[aceite]||0)+cant;msg('sm_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('sm_msg','suc',`✓ +${cant}L de ${aceite} agregados al stock`);setTimeout(()=>renderTab(2),1200);};
 
-// CONSUMOS
+// ── CONSUMOS con filtro por interno ──────────────────────
+function tablaConsumos(lista){
+  const filtro=_filtroInterno.trim().toLowerCase();
+  return`<div class="tw"><table>
+    <thead><tr><th>Fecha</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>Trabajador</th><th>Obs.</th></tr></thead>
+    <tbody>${lista.length===0
+      ?`<tr><td colspan="7" style="text-align:center;padding:28px;color:var(--text3)">${filtro?`Sin consumos para el interno <b>${_filtroInterno}</b>`:'Sin consumos registrados'}</td></tr>`
+      :lista.slice().reverse().map(c=>`<tr><td>${fmt(c.fecha)}</td><td><b>${c.aceite}</b></td><td class="mono accent">${c.cantidad}L</td><td>${c.equipo||'-'}</td><td class="mono">${c.interno||'-'}</td><td>${c.trabajador||'-'}</td><td class="obs-cell">${c.observaciones||'-'}</td></tr>`).join('')}
+    </tbody>
+  </table></div>`;
+}
+
 function rConsumos(){
   const hoy=new Date().toISOString().split('T')[0];
+  const filtro=_filtroInterno.trim().toLowerCase();
+  const lista=filtro?S.consumos.filter(c=>(c.interno||'').toLowerCase().includes(filtro)):S.consumos;
+  const totalL=lista.reduce((s,c)=>s+c.cantidad,0);
   return`<div class="card">
     <div class="card-header"><div class="card-title">📉 Registrar consumo</div></div>
     <div class="fgrid3" style="margin-bottom:14px">
@@ -603,17 +551,56 @@ function rConsumos(){
     <div id="cn_msg"></div>
   </div>
   <div class="card">
-    <div class="card-header"><div class="card-title">📜 Historial de consumos</div></div>
-    <div class="tw"><table>
-      <thead><tr><th>Fecha</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>Trabajador</th><th>Obs.</th></tr></thead>
-      <tbody>${S.consumos.length===0?`<tr><td colspan="7" style="text-align:center;padding:28px;color:var(--text3)">Sin consumos registrados</td></tr>`:S.consumos.slice().reverse().map(c=>`<tr><td>${fmt(c.fecha)}</td><td><b>${c.aceite}</b></td><td class="mono accent">${c.cantidad}L</td><td>${c.equipo||'-'}</td><td>${c.interno||'-'}</td><td>${c.trabajador||'-'}</td><td class="obs-cell">${c.observaciones||'-'}</td></tr>`).join('')}</tbody>
-    </table></div>
+    <div class="card-header">
+      <div class="card-title">📜 Historial de consumos</div>
+      <span id="cons_counter" style="font-size:12px;color:var(--text3);font-family:var(--mono)">${lista.length} registro${lista.length!==1?'s':''}${filtro?' · '+totalL+'L total':''}</span>
+    </div>
+    <div class="filter-bar">
+      <label>🔍 Filtrar por N° interno</label>
+      <input type="text" id="filtro_int_inp" placeholder="Ej: 1106" value="${_filtroInterno}" oninput="aplicarFiltro(this.value)">
+      ${filtro?`<span class="filter-tag">Interno: <b>${_filtroInterno}</b> <button class="filter-clear" onclick="limpiarFiltro()">✕</button></span>`:''}
+    </div>
+    <div id="tabla_consumos">${tablaConsumos(lista)}</div>
   </div>`;
 }
 
-window.guardarConsumo=async function(){if(!fv('cn_aceite')||!fv('cn_cant')){msg('cn_msg','err','Seleccioná el aceite y la cantidad');return;}const cant=parseInt(fv('cn_cant')),aceite=fv('cn_aceite'),sa=S.stock[aceite]||0;if(cant>sa&&!confirm(`Stock disponible de ${aceite}: ${sa}L. ¿Registrar igualmente?`))return;S.consumos.push({fecha:fv('cn_fecha'),aceite,cantidad:cant,equipo:fv('cn_equipo'),interno:fv('cn_interno'),trabajador:fv('cn_trab'),observaciones:fv('cn_obs')});S.stock[aceite]=Math.max(0,(S.stock[aceite]||0)-cant);msg('cn_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('cn_msg','suc','✓ Consumo registrado y stock actualizado');setTimeout(()=>renderTab(3),1200);};
+window.aplicarFiltro=function(val){
+  _filtroInterno=val;
+  const filtro=val.trim().toLowerCase();
+  const lista=filtro?S.consumos.filter(c=>(c.interno||'').toLowerCase().includes(filtro)):S.consumos;
+  const totalL=lista.reduce((s,c)=>s+c.cantidad,0);
+  // actualizar contador
+  const ctr=document.getElementById('cons_counter');
+  if(ctr)ctr.textContent=`${lista.length} registro${lista.length!==1?'s':''}${filtro?' · '+totalL+'L total':''}`;
+  // actualizar tag
+  const bar=document.querySelector('.filter-bar');
+  if(bar){
+    const old=bar.querySelector('.filter-tag');if(old)old.remove();
+    if(filtro&&val){
+      const tag=document.createElement('span');tag.className='filter-tag';
+      tag.innerHTML=`Interno: <b>${val}</b> <button class="filter-clear" onclick="limpiarFiltro()">✕</button>`;
+      bar.appendChild(tag);
+    }
+  }
+  const wrap=document.getElementById('tabla_consumos');
+  if(wrap)wrap.innerHTML=tablaConsumos(lista);
+};
 
-// STOCK
+window.limpiarFiltro=function(){_filtroInterno='';renderTab(3);};
+
+window.guardarConsumo=async function(){
+  if(!fv('cn_aceite')||!fv('cn_cant')){msg('cn_msg','err','Seleccioná el aceite y la cantidad');return;}
+  const cant=parseInt(fv('cn_cant')),aceite=fv('cn_aceite'),sa=S.stock[aceite]||0;
+  if(cant>sa&&!confirm(`Stock disponible de ${aceite}: ${sa}L. ¿Registrar igualmente?`))return;
+  S.consumos.push({fecha:fv('cn_fecha'),aceite,cantidad:cant,equipo:fv('cn_equipo'),interno:fv('cn_interno'),trabajador:fv('cn_trab'),observaciones:fv('cn_obs')});
+  S.stock[aceite]=Math.max(0,(S.stock[aceite]||0)-cant);
+  msg('cn_msg','inf','<div class="spinner"></div> Guardando...');
+  await guardar();
+  msg('cn_msg','suc','✓ Consumo registrado y stock actualizado');
+  setTimeout(()=>{_filtroInterno='';renderTab(3);},1200);
+};
+
+// ── STOCK ─────────────────────────────────────────────────
 function rStock(){
   const entries=Object.entries(S.stock).sort((a,b)=>a[0].localeCompare(b[0]));
   const bajo=entries.filter(([,v])=>v>0&&v<40).length;
@@ -627,8 +614,7 @@ function rStock(){
     <div id="nuevo_aceite_form"></div>
     <div class="tw"><table>
       <thead><tr><th>Tipo de aceite</th><th>Stock (L)</th><th>Estado</th>${S.user==='ingeniero'?'<th>Editar</th>':''}</tr></thead>
-      <tbody id="stBody">
-      ${entries.map(([k,v],i)=>`
+      <tbody>${entries.map(([k,v],i)=>`
         <tr class="${v===0?'row-zero':v<40?'row-low':''}">
           <td><b>${k}</b></td>
           <td id="sv_${i}"><span class="${v===0?'s-zero':v<40?'s-low':'s-ok'}">${v}L</span></td>
@@ -640,22 +626,8 @@ function rStock(){
     <div id="stock_msg"></div>
   </div>`;
 }
-
-window.toggleNuevoAceite=function(){const f=document.getElementById('nuevo_aceite_form');if(f.innerHTML){f.innerHTML='';return;}f.innerHTML=`
-  <div class="form-section" style="margin-bottom:16px">
-    <div class="form-section-title">Agregar nuevo tipo de aceite</div>
-    <div class="fgrid">
-      <div class="fg"><label>Nombre del aceite</label><input type="text" id="na_nom" placeholder="Ej: ACEITE NUEVO 20W50"></div>
-      <div class="fg"><label>Stock inicial (litros)</label><input type="number" id="na_cant" placeholder="0" min="0"></div>
-    </div>
-    <div class="brow">
-      <button class="btn pri" onclick="agregarAceite()">➕ Agregar</button>
-      <button class="btn ghost" onclick="document.getElementById('nuevo_aceite_form').innerHTML=''">Cancelar</button>
-    </div>
-  </div>`;};
-
+window.toggleNuevoAceite=function(){const f=document.getElementById('nuevo_aceite_form');if(f.innerHTML){f.innerHTML='';return;}f.innerHTML=`<div class="form-section" style="margin-bottom:16px"><div class="form-section-title">Agregar nuevo tipo de aceite</div><div class="fgrid"><div class="fg"><label>Nombre del aceite</label><input type="text" id="na_nom" placeholder="Ej: ACEITE NUEVO 20W50"></div><div class="fg"><label>Stock inicial (litros)</label><input type="number" id="na_cant" placeholder="0" min="0"></div></div><div class="brow"><button class="btn pri" onclick="agregarAceite()">➕ Agregar</button><button class="btn ghost" onclick="document.getElementById('nuevo_aceite_form').innerHTML=''">Cancelar</button></div></div>`;};
 window.agregarAceite=async function(){const nom=fv('na_nom').trim().toUpperCase(),cant=parseInt(fv('na_cant'))||0;if(!nom){msg('stock_msg','err','Ingresá el nombre del aceite');return;}if(S.stock[nom]!==undefined){msg('stock_msg','err','Ya existe un aceite con ese nombre');return;}S.stock[nom]=cant;msg('stock_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('stock_msg','suc',`✓ ${nom} agregado con ${cant}L`);setTimeout(()=>renderTab(4),1200);};
-
 window.editStock=function(nombre,i){
   const td=document.getElementById(`sv_${i}`);const btn=document.getElementById(`se_${i}`);
   if(!td||!btn)return;
@@ -663,8 +635,92 @@ window.editStock=function(nombre,i){
   btn.innerHTML=`<button class="btn suc sm" onclick="saveStock('${nombre.replace(/'/g,"\\'")}',${i})">✓ OK</button>`;
   document.getElementById(`ev_${i}`)?.select();
 };
-
 window.saveStock=async function(nombre,i){const inp=document.getElementById(`ev_${i}`);if(!inp)return;const val=parseInt(inp.value);if(isNaN(val)||val<0){alert('Valor inválido');return;}S.stock[nombre]=val;msg('stock_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('stock_msg','suc',`✓ ${nombre} actualizado a ${val}L`);setTimeout(()=>renderTab(4),1000);};
+
+// ── GESTIÓN DE ACEITES ────────────────────────────────────
+function rGestionAceites(){
+  const entries=Object.entries(S.stock).sort((a,b)=>a[0].localeCompare(b[0]));
+  return`<div class="card">
+    <div class="card-header">
+      <div class="card-title">⚙️ Gestión de tipos de aceite</div>
+      <span style="font-size:12px;color:var(--text3)">${entries.length} tipos cargados</span>
+    </div>
+    <div class="alert wrn" style="margin-bottom:20px">
+      ⚠️ Al eliminar un tipo, el stock de ese aceite desaparece del sistema. Los pedidos y consumos históricos conservan el nombre original.
+    </div>
+    ${entries.map(([k,v])=>{
+      const eid=encodeURIComponent(k);
+      const kEsc=k.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      return`<div class="aceite-row">
+        <div>
+          <div class="aceite-row-nombre">${k}</div>
+          <div id="rform_${eid}" class="rename-form">
+            <input type="text" id="rinp_${eid}" value="${k.replace(/"/g,'&quot;')}" placeholder="Nuevo nombre...">
+            <button class="btn pri sm" onclick="confirmarRenombrar('${kEsc}')">✓ Guardar nombre</button>
+            <button class="btn ghost sm" onclick="cancelarRenombrar('${eid}')">Cancelar</button>
+          </div>
+        </div>
+        <div class="aceite-row-stock">${v}L</div>
+        <div class="aceite-row-btns">
+          <button class="btn ghost sm" onclick="iniciarRenombrar('${eid}')">✏️ Renombrar</button>
+          <button class="btn dan sm" onclick="eliminarAceite('${kEsc}')">🗑️ Eliminar</button>
+        </div>
+      </div>`;
+    }).join('')}
+    <div class="divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px">➕ Agregar nuevo tipo de aceite</div>
+    <div class="fgrid">
+      <div class="fg"><label>Nombre del aceite</label><input type="text" id="ga_nom" placeholder="Ej: SAE 30 MOTOR"></div>
+      <div class="fg"><label>Stock inicial (litros)</label><input type="number" id="ga_cant" placeholder="0" min="0" value="0"></div>
+    </div>
+    <div class="brow"><button class="btn pri" onclick="gaAgregar()">➕ Agregar aceite</button></div>
+    <div id="ga_msg"></div>
+  </div>`;
+}
+
+window.iniciarRenombrar=function(eid){
+  const f=document.getElementById('rform_'+eid);
+  if(!f)return;
+  f.style.display='flex';
+  const inp=document.getElementById('rinp_'+eid);
+  if(inp){inp.focus();inp.select();}
+};
+window.cancelarRenombrar=function(eid){
+  const f=document.getElementById('rform_'+eid);
+  if(f)f.style.display='none';
+};
+window.confirmarRenombrar=async function(nombreViejo){
+  const eid=encodeURIComponent(nombreViejo);
+  const inp=document.getElementById('rinp_'+eid);
+  if(!inp)return;
+  const nuevoNombre=inp.value.trim().toUpperCase();
+  if(!nuevoNombre){alert('El nombre no puede estar vacío');return;}
+  if(nuevoNombre===nombreViejo){cancelarRenombrar(eid);return;}
+  if(S.stock[nuevoNombre]!==undefined){alert(`Ya existe un aceite llamado "${nuevoNombre}"`);return;}
+  const stockActual=S.stock[nombreViejo];
+  delete S.stock[nombreViejo];
+  S.stock[nuevoNombre]=stockActual;
+  msg('ga_msg','inf','<div class="spinner"></div> Guardando...');
+  await guardar();
+  renderTab(5);
+};
+window.eliminarAceite=async function(nombre){
+  const v=S.stock[nombre];
+  if(!confirm(`¿Eliminar "${nombre}" del sistema?\n\nStock actual: ${v}L\n\nEsta acción no se puede deshacer.`))return;
+  delete S.stock[nombre];
+  msg('ga_msg','inf','<div class="spinner"></div> Guardando...');
+  await guardar();
+  renderTab(5);
+};
+window.gaAgregar=async function(){
+  const nom=fv('ga_nom').trim().toUpperCase(),cant=parseInt(fv('ga_cant'))||0;
+  if(!nom){msg('ga_msg','err','Ingresá el nombre del aceite');return;}
+  if(S.stock[nom]!==undefined){msg('ga_msg','err','Ya existe un aceite con ese nombre');return;}
+  S.stock[nom]=cant;
+  msg('ga_msg','inf','<div class="spinner"></div> Guardando...');
+  await guardar();
+  renderTab(5);
+};
 </script>
 </body>
 </html>
