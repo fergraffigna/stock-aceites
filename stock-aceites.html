@@ -168,6 +168,11 @@ a.btn{text-decoration:none}
 .time-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;border:1px solid;margin-left:6px}
 .time-badge.ok{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
 .time-badge.exp{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
+/* FILA EDICIÓN CONSUMO */
+.edit-row td{background:var(--accent-light)!important;padding:0!important}
+.edit-consumo-form{padding:16px 18px;border-top:2px solid var(--accent);background:var(--accent-light)}
+.edit-consumo-form .fg label{color:var(--accent2)}
+.edit-consumo-form .form-title{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 </style>
 </head>
 <body>
@@ -557,24 +562,144 @@ window.marcarLlegado=async function(){const num=fv('ll_ped'),cant=parseInt(fv('l
 window.agregarStockManual=async function(){const aceite=fv('sm_aceite'),cant=parseInt(fv('sm_cant'));if(!aceite||!cant){msg('sm_msg','err','Seleccioná el aceite e ingresá la cantidad');return;}S.stock[aceite]=(S.stock[aceite]||0)+cant;msg('sm_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('sm_msg','suc','✓ +'+cant+'L de '+aceite+' agregados al stock');setTimeout(()=>renderTab(2),1200);};
 
 // ── CONSUMOS ──────────────────────────────────────────────
+let _editIdx=null; // índice del consumo que se está editando
+
 function tablaConsumos(lista){
   const hayAcciones=S.user==='ingeniero'||lista.some(c=>puedeEditarConsumo(c));
-  return'<div class="tw"><table><thead><tr><th>Fecha</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>Trabajador</th><th>Obs.</th>'+(hayAcciones?'<th>Acciones</th>':'')+
-    '</tr></thead><tbody>'+(lista.length===0?'<tr><td colspan="8" style="text-align:center;padding:28px;color:var(--text3)">Sin consumos registrados</td></tr>':
-    lista.slice().reverse().map(c=>{
+  const cols=7+(hayAcciones?1:0);
+  const filas=lista.length===0
+    ?'<tr><td colspan="'+cols+'" style="text-align:center;padding:28px;color:var(--text3)">Sin consumos registrados</td></tr>'
+    :lista.slice().reverse().map(c=>{
       const idxC=S.consumos.indexOf(c);
       const puede=puedeEditarConsumo(c);
       const tr=tiempoRestante(c.timestamp);
-      return'<tr><td>'+fmt(c.fecha)+'</td><td><b>'+c.aceite+'</b></td><td class="mono accent">'+c.cantidad+'L</td>'+
-        '<td>'+(c.equipo||'-')+'</td><td class="mono">'+(c.interno||'-')+'</td><td>'+(c.trabajador||'-')+'</td><td class="obs-cell">'+(c.observaciones||'-')+'</td>'+
-        (hayAcciones?'<td style="white-space:nowrap">'+
-          (S.user==='ingeniero'?'<button class="btn dan sm" onclick="eliminarConsumo('+idxC+')">🗑️</button>':
-           puede?'<button class="btn dan sm" onclick="eliminarConsumo('+idxC+')">🗑️</button>'+(tr?'<span class="time-badge ok">⏱ '+tr+'</span>':''):'<span class="time-badge exp">🔒 Bloqueado</span>')+
-          '</td>':'')+
-        '</tr>';
-    }).join(''))+
-    '</tbody></table></div>';
+      const esEditando=_editIdx===idxC;
+
+      const filaData='<tr id="crow_'+idxC+'" style="'+(esEditando?'background:var(--accent-light)!important':'')+'">'
+        +'<td>'+fmt(c.fecha)+'</td>'
+        +'<td><b>'+c.aceite+'</b></td>'
+        +'<td class="mono accent">'+c.cantidad+'L</td>'
+        +'<td>'+(c.equipo||'-')+'</td>'
+        +'<td class="mono">'+(c.interno||'-')+'</td>'
+        +'<td>'+(c.trabajador||'-')+'</td>'
+        +'<td class="obs-cell">'+(c.observaciones||'-')+'</td>'
+        +(hayAcciones
+          ?'<td style="white-space:nowrap">'
+            +(S.user==='ingeniero'
+              ?'<button class="btn ghost sm" onclick="abrirEditConsumo('+idxC+')" title="Editar">✏️</button> '
+               +'<button class="btn dan sm" onclick="eliminarConsumo('+idxC+')" title="Eliminar">🗑️</button>'
+              :puede
+                ?'<button class="btn ghost sm" onclick="abrirEditConsumo('+idxC+')" title="Editar">✏️</button> '
+                 +'<button class="btn dan sm" onclick="eliminarConsumo('+idxC+')" title="Eliminar">🗑️</button>'
+                 +(tr?'<span class="time-badge ok">⏱ '+tr+'</span>':'')
+                :'<span class="time-badge exp">🔒 Bloqueado</span>')
+            +'</td>'
+          :''
+        )+'</tr>';
+
+      const filaEdit=esEditando
+        ?'<tr id="ceditrow_'+idxC+'" class="edit-row"><td colspan="'+cols+'">'
+          +'<div class="edit-consumo-form">'
+          +'<div class="form-title">✏️ Editando consumo</div>'
+          +'<div class="fgrid3" style="margin-bottom:12px">'
+          +'<div class="fg"><label>Fecha</label><input type="date" id="ec_fecha" value="'+(c.fecha||'')+'"></div>'
+          +'<div class="fg"><label>Tipo de aceite</label><select id="ec_aceite">'+aceiteOptsConSelected(c.aceite)+'</select></div>'
+          +'<div class="fg"><label>Cantidad (litros)</label><input type="number" id="ec_cant" value="'+c.cantidad+'" min="1"></div>'
+          +'<div class="fg"><label>Equipo / Destino</label><input type="text" id="ec_equipo" value="'+(c.equipo||'')+'" placeholder="DD321"></div>'
+          +'<div class="fg"><label>Nro interno</label><input type="text" id="ec_interno" value="'+(c.interno||'')+'" placeholder="1106"></div>'
+          +'<div class="fg"><label>Nombre trabajador</label><input type="text" id="ec_trab" value="'+(c.trabajador||'')+'" placeholder="Apellido Nombre"></div>'
+          +'</div>'
+          +'<div class="fg" style="margin-bottom:14px"><label>Observaciones</label><textarea id="ec_obs" placeholder="Observaciones...">'+(c.observaciones||'')+'</textarea></div>'
+          +'<div style="display:flex;gap:10px;flex-wrap:wrap">'
+          +'<button class="btn pri" onclick="guardarEditConsumo('+idxC+')">💾 Guardar cambios</button>'
+          +'<button class="btn ghost" onclick="cerrarEditConsumo()">Cancelar</button>'
+          +'</div>'
+          +'<div id="ec_msg_'+idxC+'"></div>'
+          +'</div></td></tr>'
+        :'';
+
+      return filaData+filaEdit;
+    }).join('');
+
+  return'<div class="tw"><table>'
+    +'<thead><tr><th>Fecha</th><th>Aceite</th><th>Cant</th><th>Equipo</th><th>Interno</th><th>Trabajador</th><th>Obs.</th>'+(hayAcciones?'<th>Acciones</th>':'')+'</tr></thead>'
+    +'<tbody>'+filas+'</tbody>'
+    +'</table></div>';
 }
+
+// select con la opción actual preseleccionada aunque sea un aceite eliminado
+function aceiteOptsConSelected(seleccionado){
+  let opts='<option value="">Seleccionar aceite...</option>';
+  const activos=getAceitesActivos();
+  // si el aceite actual es eliminado, mostrarlo igual en edición
+  const lista=activos.includes(seleccionado)?activos:[seleccionado,...activos];
+  lista.forEach(a=>{opts+='<option'+(a===seleccionado?' selected':'')+'>'+a+'</option>';});
+  return opts;
+}
+
+window.abrirEditConsumo=function(idx){
+  if(!puedeEditarConsumo(S.consumos[idx])&&S.user!=='ingeniero'){
+    alert('No podés editar este consumo: pasaron más de 24 horas desde que fue registrado.\nContactá al ingeniero si necesitás corregirlo.');
+    return;
+  }
+  _editIdx=idx;
+  // refrescar solo la tabla para mostrar el formulario
+  const filtro=_filtroInterno.trim().toLowerCase();
+  const lista=filtro?S.consumos.filter(c=>(c.interno||'').toLowerCase().includes(filtro)):S.consumos;
+  const wrap=document.getElementById('tabla_consumos');
+  if(wrap)wrap.innerHTML=tablaConsumos(lista);
+  // scroll al formulario
+  setTimeout(()=>{const el=document.getElementById('ceditrow_'+idx);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},50);
+};
+
+window.cerrarEditConsumo=function(){
+  _editIdx=null;
+  const filtro=_filtroInterno.trim().toLowerCase();
+  const lista=filtro?S.consumos.filter(c=>(c.interno||'').toLowerCase().includes(filtro)):S.consumos;
+  const wrap=document.getElementById('tabla_consumos');
+  if(wrap)wrap.innerHTML=tablaConsumos(lista);
+};
+
+window.guardarEditConsumo=async function(idx){
+  const c=S.consumos[idx];
+  if(!c) return;
+  if(!puedeEditarConsumo(c)&&S.user!=='ingeniero'){
+    alert('No podés editar este consumo: pasaron más de 24 horas.');
+    return;
+  }
+  const nuevoAceite=fv('ec_aceite');
+  const nuevaCant=parseInt(fv('ec_cant'));
+  if(!nuevoAceite||!nuevaCant||nuevaCant<1){
+    const m=document.getElementById('ec_msg_'+idx);
+    if(m)m.innerHTML='<div class="alert err" style="margin-top:10px">Completá aceite y cantidad</div>';
+    return;
+  }
+
+  // Ajustar stock: devolver el anterior y descontar el nuevo
+  const aceiteAnterior=c.aceite;
+  const cantAnterior=c.cantidad;
+  S.stock[aceiteAnterior]=(S.stock[aceiteAnterior]||0)+cantAnterior;
+  S.stock[nuevoAceite]=(S.stock[nuevoAceite]||0)-nuevaCant;
+  if(S.stock[nuevoAceite]<0) S.stock[nuevoAceite]=0;
+
+  // Actualizar el consumo (conservar timestamp original)
+  S.consumos[idx]={
+    ...c,
+    fecha:fv('ec_fecha')||c.fecha,
+    aceite:nuevoAceite,
+    cantidad:nuevaCant,
+    equipo:fv('ec_equipo'),
+    interno:fv('ec_interno'),
+    trabajador:fv('ec_trab'),
+    observaciones:fv('ec_obs')
+  };
+
+  const m=document.getElementById('ec_msg_'+idx);
+  if(m)m.innerHTML='<div class="alert inf" style="margin-top:10px"><div class="spinner"></div> Guardando...</div>';
+  await guardar();
+  _editIdx=null;
+  renderTab(3);
+};
 
 function rConsumos(){
   const hoy=new Date().toISOString().split('T')[0];
@@ -593,7 +718,7 @@ function rConsumos(){
     '<div class="brow"><button class="btn pri" onclick="guardarConsumo()">💾 Registrar consumo</button></div><div id="cn_msg"></div></div>'+
     '<div class="card"><div class="card-header"><div class="card-title">📜 Historial de consumos</div>'+
     '<span id="cons_counter" style="font-size:12px;color:var(--text3);font-family:var(--mono)">'+lista.length+' registro'+(lista.length!==1?'s':'')+(filtro?' · '+totalL+'L total':'')+'</span></div>'+
-    (S.user==='pañolero'?'<div class="alert inf" style="margin-bottom:12px">ℹ️ Podés eliminar consumos <b>dentro de las 24 horas</b> de haberlos registrado. Pasado ese tiempo quedan bloqueados para proteger la trazabilidad.</div>':'')+
+    (S.user==='pañolero'?'<div class="alert inf" style="margin-bottom:12px">ℹ️ Podés <b>editar o eliminar</b> consumos <b>dentro de las 24 horas</b> de haberlos registrado. Pasado ese tiempo quedan bloqueados para proteger la trazabilidad.</div>':'')+
     '<div class="filter-bar"><label>🔍 Filtrar por N° interno</label>'+
     '<input type="text" id="filtro_int_inp" placeholder="Ej: 1106" value="'+_filtroInterno+'" oninput="aplicarFiltro(this.value)">'+
     (filtro?'<span class="filter-tag">Interno: <b>'+_filtroInterno+'</b> <button class="filter-clear" onclick="limpiarFiltro()">✕</button></span>':'')+
