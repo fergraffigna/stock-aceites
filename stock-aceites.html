@@ -4,15 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stock de Aceites — Ecominera</title>
+<meta name="theme-color" content="#1c7a49">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f4f6fb;--bg2:#ffffff;--bg3:#f0f3f9;--border:#e2e8f4;--border2:#c8d2e8;
   --text:#0f1b2d;--text2:#5a6a85;--text3:#a0aec0;
-  --accent:#2563eb;--accent2:#1d4ed8;--accent-light:#eff4ff;
+  --accent:#1c7a49;--accent2:#145c37;--accent-light:#e9f6ef;
   --green:#059669;--green-bg:#ecfdf5;--green-border:#a7f3d0;
   --red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;
   --yellow:#d97706;--yellow-bg:#fffbeb;--yellow-border:#fde68a;
+  --gold:#e8a900;--gold-dark:#231f20;
   --radius:10px;--radius-sm:6px;
   --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
   --font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace;
@@ -20,47 +26,51 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
 .login-page{min-height:100vh;display:flex;align-items:stretch}
-.login-left{flex:0 0 400px;background:linear-gradient(145deg,#1e3a6e 0%,#2563eb 60%,#3b82f6 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
-.login-left::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(255,255,255,.06) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,255,255,.08) 0%,transparent 50%)}
+.login-left{flex:0 0 400px;background:linear-gradient(145deg,#0d2818 0%,#1c7a49 55%,#219457 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
+.login-left::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(232,169,0,.14) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,255,255,.08) 0%,transparent 50%)}
 .ll-content{position:relative;text-align:center;color:#fff}
-.ll-content .logo{font-size:60px;margin-bottom:20px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.3))}
+.ll-logo-img{width:112px;height:auto;margin-bottom:20px;border-radius:14px;background:#fff;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .ll-content h1{font-size:26px;font-weight:700;margin-bottom:8px;letter-spacing:-.5px}
 .ll-content p{font-size:14px;opacity:.7;line-height:1.7}
 .ll-features{margin-top:36px;display:flex;flex-direction:column;gap:12px;text-align:left}
 .ll-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.8)}
 .ll-feat-icon{width:28px;height:28px;background:rgba(255,255,255,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ll-cre{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:8px;opacity:.85}
+.ll-cre img{height:30px;width:auto;background:#fff;border-radius:6px;padding:3px 6px}
+.ll-cre span{font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.6px}
 .login-right{flex:1;display:flex;align-items:center;justify-content:center;padding:48px}
 .login-box{width:100%;max-width:380px}
 .login-box h2{font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-.5px}
 .login-box .sub{font-size:13px;color:var(--text2);margin-bottom:32px;line-height:1.5}
 .user-selector{display:flex;gap:10px;margin-bottom:24px}
 .user-opt{flex:1;padding:14px 12px;border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:center;transition:all .2s;background:var(--bg2)}
-.user-opt:hover{border-color:rgba(37,99,235,.4);background:var(--accent-light)}
-.user-opt.sel{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.user-opt:hover{border-color:rgba(28,122,73,.4);background:var(--accent-light)}
+.user-opt.sel{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 3px rgba(28,122,73,.1)}
 .user-opt .u-icon{font-size:24px;margin-bottom:6px}
 .user-opt .u-name{font-size:12px;font-weight:700;color:var(--text)}
 .user-opt .u-desc{font-size:11px;color:var(--text2);margin-top:2px}
 .lf{margin-bottom:18px}
 .lf label{display:block;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px}
 .lf input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font);color:var(--text);background:var(--bg2);transition:all .15s}
-.lf input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.lf input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(28,122,73,.12)}
 .login-btn{width:100%;height:46px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .15s;letter-spacing:.2px}
-.login-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,.35)}
+.login-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(28,122,73,.35)}
 .login-btn:disabled{opacity:.6;transform:none;cursor:default}
 .login-err{color:var(--red);font-size:12px;margin-top:10px;text-align:center;min-height:18px;font-weight:500}
 @media(max-width:720px){.login-page{flex-direction:column}.login-left{flex:none;min-height:180px;padding:28px}.ll-features{display:none}.login-right{padding:28px 20px}}
 .header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(0,0,0,.06)}
 .h-brand{display:flex;align-items:center;gap:12px}
-.h-brand .logo{font-size:22px}
+.h-brand .logo-img{height:32px;width:auto;border-radius:6px}
+.h-brand .cre-logo-img{height:24px;width:auto;padding-left:10px;border-left:1px solid var(--border)}
 .h-brand h2{font-size:15px;font-weight:700;letter-spacing:-.3px}
 .h-brand span{color:var(--text2);font-weight:400}
 .badge{font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;letter-spacing:.3px}
-.badge.ing{background:var(--accent-light);color:var(--accent);border:1px solid rgba(37,99,235,.2)}
+.badge.ing{background:var(--accent-light);color:var(--accent);border:1px solid rgba(28,122,73,.2)}
 .badge.pan{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .h-right{display:flex;gap:8px;align-items:center}
 .hbtn{height:32px;padding:0 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);transition:all .15s}
 .hbtn:hover{border-color:var(--border2);color:var(--text);background:var(--bg3)}
-.hbtn.sync{color:var(--accent);border-color:rgba(37,99,235,.25)}
+.hbtn.sync{color:var(--accent);border-color:rgba(28,122,73,.25)}
 .hbtn.sync:hover{background:var(--accent-light)}
 .hbtn.backup{color:var(--green);border-color:rgba(5,150,105,.3);background:var(--green-bg)}
 .hbtn.backup:hover{background:#d1fae5}
@@ -84,12 +94,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .fg{display:flex;flex-direction:column;gap:6px}
 .fg label{font-size:11px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
 .fg input,.fg select,.fg textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--bg3);color:var(--text);font-family:var(--font);transition:all .15s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--accent);background:var(--bg2);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--accent);background:var(--bg2);box-shadow:0 0 0 3px rgba(28,122,73,.08)}
 .fg textarea{min-height:64px;resize:vertical}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--text3)}
 .btn{height:38px;padding:0 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn.pri{background:var(--accent);color:#fff;border:none;box-shadow:0 2px 8px rgba(37,99,235,.2)}
-.btn.pri:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,99,235,.3)}
+.btn.pri{background:var(--accent);color:#fff;border:none;box-shadow:0 2px 8px rgba(28,122,73,.2)}
+.btn.pri:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(28,122,73,.3)}
 .btn.suc{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-border)}
 .btn.suc:hover{background:#d1fae5}
 .btn.wrn{background:var(--yellow-bg);color:var(--yellow);border:1.5px solid var(--yellow-border)}
@@ -103,7 +113,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .alert{padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1.5px solid}
 .alert.suc{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
 .alert.wrn{background:var(--yellow-bg);color:var(--yellow);border-color:var(--yellow-border)}
-.alert.inf{background:var(--accent-light);color:var(--accent);border-color:rgba(37,99,235,.2)}
+.alert.inf{background:var(--accent-light);color:var(--accent);border-color:rgba(28,122,73,.2)}
 .alert.err{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
 .tw{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse;font-size:13px}
@@ -111,7 +121,7 @@ thead{background:var(--bg3)}
 th{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;font-size:11px}
 td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:rgba(37,99,235,.02)}
+tbody tr:hover td{background:rgba(28,122,73,.02)}
 .obs-cell{max-width:180px;font-size:12px;color:var(--text2);white-space:normal;word-break:break-word}
 .mono{font-family:var(--mono);font-weight:500}
 .accent{color:var(--accent)}
@@ -119,7 +129,7 @@ tbody tr:hover td{background:rgba(37,99,235,.02)}
 .pill::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .pill.pend{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}.pill.pend::before{background:var(--yellow)}
 .pill.lleg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}.pill.lleg::before{background:var(--green)}
-.pill.sc{background:var(--accent-light);color:var(--accent);border:1px solid rgba(37,99,235,.2)}.pill.sc::before{background:var(--accent)}
+.pill.sc{background:var(--accent-light);color:var(--accent);border:1px solid rgba(28,122,73,.2)}.pill.sc::before{background:var(--accent)}
 .s-ok{color:var(--green);font-family:var(--mono);font-weight:700}
 .s-low{color:var(--yellow);font-family:var(--mono);font-weight:700}
 .s-zero{color:var(--red);font-family:var(--mono);font-weight:700}
@@ -135,20 +145,20 @@ tbody tr:hover td{background:rgba(37,99,235,.02)}
 .mail-row .lbl{color:var(--text2);font-weight:700;min-width:62px;flex-shrink:0}
 .mail-row .val{color:var(--text)}
 .edit-inp{width:90px;padding:5px 8px;border:1.5px solid var(--accent);border-radius:var(--radius-sm);font-size:13px;font-family:var(--mono);font-weight:600;background:var(--bg2);color:var(--text)}
-.edit-inp:focus{outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.edit-inp:focus{outline:none;box-shadow:0 0 0 3px rgba(28,122,73,.12)}
 .aceite-row{display:grid;grid-template-columns:1fr auto auto;align-items:start;gap:12px;padding:12px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;transition:border-color .15s}
 .aceite-row:hover{border-color:var(--border2)}
 .aceite-row-nombre{font-weight:700;font-size:13px;color:var(--text);padding-top:4px}
 .aceite-row-stock{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);padding-top:6px;text-align:right;white-space:nowrap}
 .aceite-row-btns{display:flex;gap:6px;flex-shrink:0}
-.rename-form{display:none;margin-top:10px;padding:10px 12px;background:var(--accent-light);border:1.5px solid rgba(37,99,235,.2);border-radius:var(--radius-sm);gap:8px;align-items:center;flex-wrap:wrap}
+.rename-form{display:none;margin-top:10px;padding:10px 12px;background:var(--accent-light);border:1.5px solid rgba(28,122,73,.2);border-radius:var(--radius-sm);gap:8px;align-items:center;flex-wrap:wrap}
 .rename-form input{flex:1;min-width:180px;padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font);background:var(--bg2);color:var(--text)}
-.rename-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.rename-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(28,122,73,.08)}
 .filter-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;padding:12px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm)}
 .filter-bar label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 .filter-bar input{padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font);background:var(--bg2);color:var(--text);width:180px;transition:all .15s}
-.filter-bar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
-.filter-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--accent-light);border:1px solid rgba(37,99,235,.25);border-radius:100px;font-size:11px;font-weight:700;color:var(--accent)}
+.filter-bar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(28,122,73,.08)}
+.filter-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--accent-light);border:1px solid rgba(28,122,73,.25);border-radius:100px;font-size:11px;font-weight:700;color:var(--accent)}
 .filter-clear{background:none;border:none;cursor:pointer;color:var(--accent);font-size:14px;font-weight:700;padding:0;line-height:1;opacity:.7}
 .filter-clear:hover{opacity:1}
 .spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
@@ -181,7 +191,7 @@ a.btn{text-decoration:none}
 <div id="loginPage" class="login-page">
   <div class="login-left">
     <div class="ll-content">
-      <div class="logo">🛢️</div>
+      <img class="ll-logo-img" src="assets/logo-ecominera.png" alt="Ecominera">
       <h1>Stock de Aceites</h1>
       <p>Sistema de control de fluidos<br>Ecominera</p>
       <div class="ll-features">
@@ -190,6 +200,7 @@ a.btn{text-decoration:none}
         <div class="ll-feat"><div class="ll-feat-icon">✉️</div>Generación de mails para Outlook</div>
         <div class="ll-feat"><div class="ll-feat-icon">🔄</div>Sincronización entre equipos</div>
       </div>
+      <div class="ll-cre"><img src="assets/logo-cre.png" alt="C.R.E."><span>C.R.E.</span></div>
     </div>
   </div>
   <div class="login-right">
@@ -220,9 +231,10 @@ a.btn{text-decoration:none}
 <div id="mainApp" style="display:none">
   <div class="header">
     <div class="h-brand">
-      <span class="logo">🛢️</span>
+      <img class="logo-img" src="assets/logo-ecominera.png" alt="Ecominera">
       <h2>Stock <span>de Aceites</span></h2>
       <span class="badge" id="userBadge"></span>
+      <img class="cre-logo-img" src="assets/logo-cre.png" alt="C.R.E.">
     </div>
     <div class="h-right">
       <button class="hbtn backup" onclick="descargarBackup()">📥 Backup Excel</button>
@@ -263,7 +275,7 @@ let S={user:null,tab:0,sel:'ingeniero',pedidos:[],consumos:[],stock:{},eliminado
 let _filtroInterno='';
 
 async function fbGet(id){try{const s=await getDoc(doc(db,'aceites',id));return s.exists()?s.data().value:null;}catch{return null;}}
-async function fbSet(id,v){try{await setDoc(doc(db,'aceites',id),{value:v});}catch(e){console.error(e);}}
+async function fbSet(id,v){await setDoc(doc(db,'aceites',id),{value:v});}
 
 async function cargar(){
   const[p,c,sk,n,eli]=await Promise.all([fbGet('pedidos'),fbGet('consumos'),fbGet('stock'),fbGet('counter'),fbGet('eliminados')]);
@@ -274,8 +286,19 @@ async function cargar(){
   S.eliminados=eli||[];
 }
 
-async function guardar(){
-  await Promise.all([fbSet('pedidos',S.pedidos),fbSet('consumos',S.consumos),fbSet('stock',S.stock),fbSet('counter',S.counter),fbSet('eliminados',S.eliminados)]);
+// Guarda SOLO las colecciones que esta acción modificó (keys), nunca todas.
+// Evita que una sesión con datos viejos pise cambios de otra sesión en
+// colecciones que ni siquiera tocó (esto es lo que causó que se perdiera un PF).
+// Devuelve true/false en vez de fallar en silencio.
+async function guardar(keys){
+  const mapa={pedidos:S.pedidos,consumos:S.consumos,stock:S.stock,counter:S.counter,eliminados:S.eliminados};
+  try{
+    await Promise.all(keys.map(k=>fbSet(k,mapa[k])));
+    return true;
+  }catch(e){
+    console.error('Error guardando en Firestore:',e);
+    return false;
+  }
 }
 
 // Solo aceites ACTIVOS (no eliminados) para los desplegables
@@ -466,7 +489,7 @@ function rNuevo(){
     '<button class="btn suc" style="flex-shrink:0;margin-bottom:0" onclick="agregarItem()">+ Agregar aceite</button></div>'+
     '<div id="item_msg"></div><div id="items_wrap"><div style="color:var(--text3);font-size:13px;padding:8px 0">Todavía no agregaste ningún aceite.</div></div></div>'+
     '<div class="fg" style="margin-bottom:12px"><label>Observaciones</label><textarea id="np_obs" placeholder="Urgencia, aclaraciones, contacto..."></textarea></div>'+
-    '<div style="padding:10px 14px;background:var(--accent-light);border-radius:var(--radius-sm);border:1px solid rgba(37,99,235,.2);font-size:12px;color:var(--accent);margin-bottom:12px">ℹ️ ¿El aceite que necesitás no está en la lista? <b style="cursor:pointer;text-decoration:underline" onclick="toggleAceiteRapido()">Agregalo acá</b></div>'+
+    '<div style="padding:10px 14px;background:var(--accent-light);border-radius:var(--radius-sm);border:1px solid rgba(28,122,73,.2);font-size:12px;color:var(--accent);margin-bottom:12px">ℹ️ ¿El aceite que necesitás no está en la lista? <b style="cursor:pointer;text-decoration:underline" onclick="toggleAceiteRapido()">Agregalo acá</b></div>'+
     '<div id="aceite_rapido" style="display:none;margin-bottom:12px"><div class="form-section" style="margin-bottom:0"><div class="form-section-title">Agregar nuevo aceite a la lista</div><div class="fgrid"><div class="fg"><label>Nombre del aceite</label><input type="text" id="ar_nom" placeholder="Ej: ACEITE NUEVO 20W50"></div><div class="fg"><label>Stock inicial (litros)</label><input type="number" id="ar_cant" placeholder="0" min="0" value="0"></div></div><div class="brow"><button class="btn pri sm" onclick="agregarAceiteRapido()">➕ Agregar a la lista</button></div><div id="ar_msg"></div></div></div>'+
     '<div class="brow"><button class="btn pri" onclick="guardarPedido()">💾 Guardar pedido</button><button class="btn ghost" onclick="prevMail()">✉️ Generar mail Outlook</button></div>'+
     '<div id="np_msg"></div><div id="mailArea"></div></div>';
@@ -476,10 +499,18 @@ window.guardarPedido=async function(){
   if(!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá equipo e interno');return;}
   if(npItems.length===0){msg('np_msg','err','Agregá al menos un aceite al pedido');return;}
   const num=nextNum();
-  npItems.forEach(it=>{S.pedidos.push({numero:num,fecha:fv('np_fecha'),aceite:it.aceite,cantidad:it.cantidad,equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''});});
-  S.counter++;
+  const nuevos=npItems.map(it=>({numero:num,fecha:fv('np_fecha'),aceite:it.aceite,cantidad:it.cantidad,equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''}));
   msg('np_msg','inf','<div class="spinner"></div> Guardando...');
-  await guardar();
+  // No tocar S hasta confirmar que se guardó, así un fallo no deja el pedido "a medias" en memoria
+  S.pedidos=S.pedidos.concat(nuevos);
+  S.counter++;
+  const ok=await guardar(['pedidos','counter']);
+  if(!ok){
+    S.pedidos=S.pedidos.slice(0,-nuevos.length);
+    S.counter--;
+    msg('np_msg','err','✗ No se pudo guardar el pedido (falló la conexión con la base). Volvé a intentar — no quedó guardado.');
+    return;
+  }
   msg('np_msg','suc','✓ Pedido '+num+' guardado con '+npItems.length+' aceite'+(npItems.length>1?'s':''));
   npItems=[];setTimeout(()=>renderTab(2),1500);
 };
@@ -494,7 +525,7 @@ window.prevMail=function(){
   const body='Buen día Jorge,\n\nFavor avanzar con la siguiente solicitud de Fluidos:\n\nPedido N°:   '+num+'\nFecha:       '+fechaStr+'\nEquipo:      '+fv('np_equipo')+'  |  Interno: '+fv('np_interno')+'  |  Marca: '+marca+'\n\nAceites solicitados:\n\n'+filasMail+'\n'+(obs?'\nObservaciones:\n'+obs+'\n':'')+'\nSaludos,';
   const to='jorgesteiner@ecominera.com.ar',cc='guillermocorrea@ecominera.com.ar;alejandrofernandez@ecominera.com.ar;PASANTECRE@ecominera.com.ar;danielfernandez@ecominera.com.ar';
   const link='mailto:'+to+'?cc='+encodeURIComponent(cc)+'&subject='+encodeURIComponent(asunto)+'&body='+encodeURIComponent(body);
-  const filasHTML=npItems.map((it,i)=>'<tr style="border-bottom:1px solid #e2e8f4"><td style="padding:8px 12px;color:#5a6a85;font-family:monospace;font-size:12px">'+(i+1)+'</td><td style="padding:8px 12px;font-weight:600;font-size:13px">'+it.aceite+'</td><td style="padding:8px 12px;font-family:monospace;font-weight:700;color:#2563eb;font-size:13px">'+it.cantidad+' L</td></tr>').join('');
+  const filasHTML=npItems.map((it,i)=>'<tr style="border-bottom:1px solid #e2e8f4"><td style="padding:8px 12px;color:#5a6a85;font-family:monospace;font-size:12px">'+(i+1)+'</td><td style="padding:8px 12px;font-weight:600;font-size:13px">'+it.aceite+'</td><td style="padding:8px 12px;font-family:monospace;font-weight:700;color:#1c7a49;font-size:13px">'+it.cantidad+' L</td></tr>').join('');
   document.getElementById('mailArea').innerHTML='<div class="divider"></div><div class="alert suc">✓ Mail generado — hacé clic en "Abrir en Outlook"</div>'+
     '<div class="mail-wrap"><div class="mail-head"><div class="mail-row"><span class="lbl">Para:</span><span class="val">jorgesteiner@ecominera.com.ar</span></div>'+
     '<div class="mail-row"><span class="lbl">CC:</span><span class="val">guillermocorrea@; alejandrofernandez@; PASANTECRE@; danielfernandez@ecominera.com.ar</span></div>'+
@@ -514,7 +545,7 @@ window.prevMail=function(){
     '<div class="brow"><a href="'+link+'" class="btn pri">✉️ Abrir en Outlook</a></div>';
 };
 
-window.borrarPedido=async function(i){if(!confirm('¿Eliminar este pedido?'))return;S.pedidos.splice(i,1);await guardar();renderTab(1);};
+window.borrarPedido=async function(i){if(!confirm('¿Eliminar este pedido?'))return;const backup=S.pedidos[i];S.pedidos.splice(i,1);if(!await guardar(['pedidos'])){S.pedidos.splice(i,0,backup);alert('✗ No se pudo eliminar el pedido (falló la conexión con la base). Volvé a intentar.');return;}renderTab(1);};
 window.toggleAceiteRapido=function(){const d=document.getElementById('aceite_rapido');if(d)d.style.display=d.style.display==='none'?'block':'none';};
 window.agregarAceiteRapido=async function(){
   const nom=fv('ar_nom').trim().toUpperCase(),cant=parseInt(fv('ar_cant'))||0;
@@ -523,7 +554,7 @@ window.agregarAceiteRapido=async function(){
   S.stock[nom]=cant;
   S.eliminados=S.eliminados.filter(e=>e!==nom);
   msg('ar_msg','inf','<div class="spinner"></div> Guardando...');
-  await guardar();
+  if(!await guardar(['stock','eliminados'])){msg('ar_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');return;}
   msg('ar_msg','suc','"'+nom+'" agregado a la lista');
   const sel=document.getElementById('np_aceite');
   if(sel){const opt=document.createElement('option');opt.text=nom;opt.value=nom;sel.appendChild(opt);sel.value=nom;}
@@ -645,7 +676,7 @@ window.guardarSolicitud=async function(){
   let actualizados=0;
   S.pedidos.forEach(p=>{if(p.numero===num&&p.estado==='PENDIENTE'){p.nroSolicitud=sc;actualizados++;}});
   msg('sol_msg','inf','<div class="spinner"></div> Guardando...');
-  await guardar();
+  if(!await guardar(['pedidos'])){msg('sol_msg','err','✗ No se pudo guardar la solicitud (falló la conexión con la base). Volvé a intentar.');return;}
   msg('sol_msg','suc','✓ Solicitud '+sc+' asignada a '+num+' ('+actualizados+' aceite'+(actualizados>1?'s':'')+')');
   setTimeout(()=>renderTab(2),1400);
 };
@@ -664,11 +695,11 @@ window.marcarLlegado=async function(){
   });
   const totalL=cantidades.reduce((a,b)=>a+b,0);
   msg('ll_msg','inf','<div class="spinner"></div> Actualizando...');
-  await guardar();
+  if(!await guardar(['pedidos','stock'])){msg('ll_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');return;}
   msg('ll_msg','suc','✓ '+num+' marcado como llegado — '+items.length+' aceite'+(items.length>1?'s':'')+', '+totalL+'L agregados al stock');
   setTimeout(()=>renderTab(2),1400);
 };
-window.agregarStockManual=async function(){const aceite=fv('sm_aceite'),cant=parseInt(fv('sm_cant'));if(!aceite||!cant){msg('sm_msg','err','Seleccioná el aceite e ingresá la cantidad');return;}S.stock[aceite]=(S.stock[aceite]||0)+cant;msg('sm_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('sm_msg','suc','✓ +'+cant+'L de '+aceite+' agregados al stock');setTimeout(()=>renderTab(2),1200);};
+window.agregarStockManual=async function(){const aceite=fv('sm_aceite'),cant=parseInt(fv('sm_cant'));if(!aceite||!cant){msg('sm_msg','err','Seleccioná el aceite e ingresá la cantidad');return;}S.stock[aceite]=(S.stock[aceite]||0)+cant;msg('sm_msg','inf','<div class="spinner"></div> Guardando...');if(!await guardar(['stock'])){msg('sm_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');return;}msg('sm_msg','suc','✓ +'+cant+'L de '+aceite+' agregados al stock');setTimeout(()=>renderTab(2),1200);};
 
 // ── CONSUMOS ──────────────────────────────────────────────
 let _editIdx=null; // índice del consumo que se está editando
@@ -805,7 +836,10 @@ window.guardarEditConsumo=async function(idx){
 
   const m=document.getElementById('ec_msg_'+idx);
   if(m)m.innerHTML='<div class="alert inf" style="margin-top:10px"><div class="spinner"></div> Guardando...</div>';
-  await guardar();
+  if(!await guardar(['stock','consumos'])){
+    if(m)m.innerHTML='<div class="alert err" style="margin-top:10px">✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.</div>';
+    return;
+  }
   _editIdx=null;
   renderTab(3);
 };
@@ -859,7 +893,12 @@ window.eliminarConsumo=async function(idx){
   if(!confirm('¿Eliminar el consumo de '+c.aceite+' ('+c.cantidad+'L) del '+fmt(c.fecha)+'?\n\nEl stock se repondrá automáticamente.')) return;
   S.stock[c.aceite]=(S.stock[c.aceite]||0)+c.cantidad;
   S.consumos.splice(idx,1);
-  await guardar();
+  if(!await guardar(['stock','consumos'])){
+    S.stock[c.aceite]=(S.stock[c.aceite]||0)-c.cantidad;
+    S.consumos.splice(idx,0,c);
+    alert('✗ No se pudo eliminar el consumo (falló la conexión con la base). Volvé a intentar.');
+    return;
+  }
   renderTab(3);
 };
 
@@ -875,7 +914,7 @@ window.guardarConsumo=async function(){
   });
   S.stock[aceite]=Math.max(0,(S.stock[aceite]||0)-cant);
   msg('cn_msg','inf','<div class="spinner"></div> Guardando...');
-  await guardar();
+  if(!await guardar(['consumos','stock'])){msg('cn_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');return;}
   msg('cn_msg','suc','✓ Consumo registrado y stock actualizado');
   setTimeout(()=>{_filtroInterno='';renderTab(3);},1200);
 };
@@ -905,7 +944,8 @@ window.agregarAceite=async function(){
   if(!nom){msg('stock_msg','err','Ingresá el nombre del aceite');return;}
   if(S.stock[nom]!==undefined&&!S.eliminados.includes(nom)){msg('stock_msg','err','Ya existe un aceite con ese nombre');return;}
   S.stock[nom]=cant;S.eliminados=S.eliminados.filter(e=>e!==nom);
-  msg('stock_msg','inf','<div class="spinner"></div> Guardando...');await guardar();
+  msg('stock_msg','inf','<div class="spinner"></div> Guardando...');
+  if(!await guardar(['stock','eliminados'])){msg('stock_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');return;}
   msg('stock_msg','suc','✓ '+nom+' agregado con '+cant+'L');setTimeout(()=>renderTab(4),1200);
 };
 window.editStock=function(nombre,i){
@@ -915,7 +955,7 @@ window.editStock=function(nombre,i){
   btn.innerHTML='<button class="btn suc sm" onclick="saveStock(\''+nombre.replace(/'/g,"\\'")+'\','+i+')">✓ OK</button>';
   document.getElementById('ev_'+i)?.select();
 };
-window.saveStock=async function(nombre,i){const inp=document.getElementById('ev_'+i);if(!inp)return;const val=parseInt(inp.value);if(isNaN(val)||val<0){alert('Valor inválido');return;}S.stock[nombre]=val;msg('stock_msg','inf','<div class="spinner"></div> Guardando...');await guardar();msg('stock_msg','suc','✓ '+nombre+' actualizado a '+val+'L');setTimeout(()=>renderTab(4),1000);};
+window.saveStock=async function(nombre,i){const inp=document.getElementById('ev_'+i);if(!inp)return;const val=parseInt(inp.value);if(isNaN(val)||val<0){alert('Valor inválido');return;}const anterior=S.stock[nombre];S.stock[nombre]=val;msg('stock_msg','inf','<div class="spinner"></div> Guardando...');if(!await guardar(['stock'])){S.stock[nombre]=anterior;msg('stock_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');return;}msg('stock_msg','suc','✓ '+nombre+' actualizado a '+val+'L');setTimeout(()=>renderTab(4),1000);};
 
 // ── GESTIÓN DE ACEITES ────────────────────────────────────
 function rGestionAceites(){
@@ -958,14 +998,26 @@ window.confirmarRenombrar=async function(nombreViejo){
   delete S.stock[nombreViejo];
   S.stock[nuevoNombre]=stockActual;
   msg('ga_msg','inf','<div class="spinner"></div> Guardando...');
-  await guardar();renderTab(5);
+  if(!await guardar(['stock'])){
+    delete S.stock[nuevoNombre];
+    S.stock[nombreViejo]=stockActual;
+    msg('ga_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');
+    return;
+  }
+  renderTab(5);
 };
 window.eliminarAceite=async function(nombre){
   const v=S.stock[nombre];
   if(!confirm('¿Eliminar "'+nombre+'" del sistema?\n\nStock actual: '+v+'L\n\nEl aceite dejará de aparecer en todos los desplegables. Los registros históricos se conservan.\n\nEsta acción no se puede deshacer.'))return;
-  if(!S.eliminados.includes(nombre)) S.eliminados.push(nombre);
+  const yaEstaba=S.eliminados.includes(nombre);
+  if(!yaEstaba) S.eliminados.push(nombre);
   msg('ga_msg','inf','<div class="spinner"></div> Guardando...');
-  await guardar();renderTab(5);
+  if(!await guardar(['eliminados'])){
+    if(!yaEstaba) S.eliminados=S.eliminados.filter(e=>e!==nombre);
+    msg('ga_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');
+    return;
+  }
+  renderTab(5);
 };
 window.gaAgregar=async function(){
   const nom=fv('ga_nom').trim().toUpperCase(),cant=parseInt(fv('ga_cant'))||0;
@@ -973,7 +1025,8 @@ window.gaAgregar=async function(){
   if(S.stock[nom]!==undefined&&!S.eliminados.includes(nom)){msg('ga_msg','err','Ya existe un aceite con ese nombre');return;}
   S.stock[nom]=cant;S.eliminados=S.eliminados.filter(e=>e!==nom);
   msg('ga_msg','inf','<div class="spinner"></div> Guardando...');
-  await guardar();renderTab(5);
+  if(!await guardar(['stock','eliminados'])){msg('ga_msg','err','✗ No se pudo guardar (falló la conexión con la base). Volvé a intentar.');return;}
+  renderTab(5);
 };
 </script>
 </body>
