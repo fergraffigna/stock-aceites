@@ -57,7 +57,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .login-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(28,122,73,.35)}
 .login-btn:disabled{opacity:.6;transform:none;cursor:default}
 .login-err{color:var(--red);font-size:12px;margin-top:10px;text-align:center;min-height:18px;font-weight:500}
-@media(max-width:720px){.login-page{flex-direction:column}.login-left{flex:none;min-height:180px;padding:28px}.ll-features{display:none}.login-right{padding:28px 20px}}
+@media(max-width:720px){.login-page{flex-direction:column}.login-left{flex:none;min-height:180px;padding:24px}.ll-features{display:none}.ll-logo-img{width:80px;margin-bottom:12px}.ll-content h1{font-size:21px}.ll-cre{margin-top:16px}.login-right{padding:24px 20px}}
 .header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(0,0,0,.06)}
 .h-brand{display:flex;align-items:center;gap:12px}
 .h-brand .logo-img{height:32px;width:auto;border-radius:6px}
@@ -183,6 +183,44 @@ a.btn{text-decoration:none}
 .edit-consumo-form{padding:16px 18px;border-top:2px solid var(--accent);background:var(--accent-light)}
 .edit-consumo-form .fg label{color:var(--accent2)}
 .edit-consumo-form .form-title{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+
+/* ── MOBILE (uso principal: compu — esto es para que ande bien en el celu) ── */
+@media(max-width:860px){
+  .content{padding:14px}
+  .card{padding:16px 14px}
+  .fgrid,.fgrid3{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+  .filter-bar input{width:100%}
+  .filter-bar{flex-direction:column;align-items:stretch}
+  .aceite-row{grid-template-columns:1fr;gap:8px}
+  .aceite-row-stock{text-align:left}
+  .aceite-row-btns{flex-wrap:wrap}
+}
+@media(max-width:640px){
+  body{font-size:13px}
+  .header{flex-wrap:wrap;height:auto;padding:10px 12px;gap:8px}
+  .h-brand{gap:8px}
+  .h-brand .logo-img{height:26px}
+  .h-brand .cre-logo-img{height:18px;padding-left:6px}
+  .h-brand h2{font-size:13px}
+  .h-brand h2 span{display:none}
+  .h-right{gap:6px;flex-wrap:wrap;width:100%;justify-content:flex-end}
+  .hbtn{height:30px;padding:0 10px;font-size:11px}
+  .tabs{padding:0 8px}
+  .tab{padding:12px 12px;font-size:12px}
+  .btn{height:36px;padding:0 14px;font-size:12px}
+  .brow{gap:8px}
+  .metric .val{font-size:24px}
+  .mail-row{flex-direction:column;gap:1px}
+  .mail-row .lbl{min-width:0}
+  th,td{padding:8px 10px;font-size:12px}
+  .modal-box{padding:26px 20px}
+}
+@media(max-width:480px){
+  .metrics{grid-template-columns:1fr 1fr}
+  .user-selector{flex-direction:column}
+  .h-brand .cre-logo-img{display:none}
+}
 </style>
 </head>
 <body>
