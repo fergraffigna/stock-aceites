@@ -494,24 +494,27 @@ function rPedidos(){
 }
 
 let npItems=[];
+let npSavedNum=null; // número ya guardado en Firestore para el pedido actual (null = todavía no se guardó)
 function renderItems(){
   const wrap=document.getElementById('items_wrap');if(!wrap)return;
   if(npItems.length===0){wrap.innerHTML='<div style="color:var(--text3);font-size:13px;padding:12px 0">Todavía no agregaste ningún aceite.</div>';return;}
   wrap.innerHTML=npItems.map((it,i)=>'<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px"><div style="flex:1"><span style="font-weight:600;font-size:13px">'+it.aceite+'</span><span style="margin-left:10px;font-family:var(--mono);color:var(--accent);font-weight:600">'+it.cantidad+'L</span></div><button class="btn dan sm" onclick="quitarItem('+i+')">✕</button></div>').join('');
 }
-window.quitarItem=function(i){npItems.splice(i,1);renderItems();};
+window.quitarItem=function(i){npItems.splice(i,1);npSavedNum=null;renderItems();};
 window.agregarItem=function(){
   const aceite=fv('np_aceite'),cant=parseInt(fv('np_cant'));
   if(!aceite){msg('item_msg','err','Seleccioná un tipo de aceite');return;}
   if(!cant||cant<1){msg('item_msg','err','Ingresá una cantidad válida');return;}
   if(npItems.find(it=>it.aceite===aceite)){msg('item_msg','err','Ese aceite ya está en el pedido');return;}
   npItems.push({aceite,cantidad:cant});
+  npSavedNum=null;
   document.getElementById('np_aceite').value='';document.getElementById('np_cant').value='';document.getElementById('item_msg').innerHTML='';
   renderItems();
 };
 
 function rNuevo(){
   npItems=[];
+  npSavedNum=null;
   const hoy=new Date().toISOString().split('T')[0];
   return'<div class="card"><div class="card-header"><div class="card-title">➕ Nuevo pedido</div><span class="mono accent" style="font-size:16px;font-weight:700">'+nextNum()+'</span></div>'+
     '<div class="form-section"><div class="form-section-title">Equipo destino</div><div class="fgrid3">'+
@@ -533,12 +536,13 @@ function rNuevo(){
     '<div id="np_msg"></div><div id="mailArea"></div></div>';
 }
 
-window.guardarPedido=async function(){
-  if(!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá equipo e interno');return;}
-  if(npItems.length===0){msg('np_msg','err','Agregá al menos un aceite al pedido');return;}
+// Guarda el pedido actual en Firestore (si todavía no se guardó) y devuelve {ok, num}.
+// La usan tanto "Guardar pedido" como "Generar mail Outlook", para que sea imposible
+// generar el mail de un pedido de PF41/42/43 sin que quede guardado en el sistema.
+async function guardarPedidoInterno(){
+  if(npSavedNum) return{ok:true,num:npSavedNum};
   const num=nextNum();
   const nuevos=npItems.map(it=>({numero:num,fecha:fv('np_fecha'),aceite:it.aceite,cantidad:it.cantidad,equipo:fv('np_equipo'),interno:fv('np_interno'),marca:fv('np_marca'),observaciones:fv('np_obs'),estado:'PENDIENTE',nroSolicitud:''}));
-  msg('np_msg','inf','<div class="spinner"></div> Guardando...');
   // No tocar S hasta confirmar que se guardó, así un fallo no deja el pedido "a medias" en memoria
   S.pedidos=S.pedidos.concat(nuevos);
   S.counter++;
@@ -546,17 +550,41 @@ window.guardarPedido=async function(){
   if(!ok){
     S.pedidos=S.pedidos.slice(0,-nuevos.length);
     S.counter--;
+    return{ok:false};
+  }
+  npSavedNum=num;
+  return{ok:true,num};
+}
+
+window.guardarPedido=async function(){
+  if(!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá equipo e interno');return;}
+  if(npItems.length===0){msg('np_msg','err','Agregá al menos un aceite al pedido');return;}
+  if(npSavedNum){msg('np_msg','suc','✓ Este pedido ya está guardado como '+npSavedNum);return;}
+  msg('np_msg','inf','<div class="spinner"></div> Guardando...');
+  const r=await guardarPedidoInterno();
+  if(!r.ok){
     msg('np_msg','err','✗ No se pudo guardar el pedido (falló la conexión con la base). Volvé a intentar — no quedó guardado.');
     return;
   }
-  msg('np_msg','suc','✓ Pedido '+num+' guardado con '+npItems.length+' aceite'+(npItems.length>1?'s':''));
+  msg('np_msg','suc','✓ Pedido '+r.num+' guardado con '+npItems.length+' aceite'+(npItems.length>1?'s':''));
   npItems=[];setTimeout(()=>renderTab(2),1500);
 };
 
-window.prevMail=function(){
+window.prevMail=async function(){
   if(!fv('np_equipo')||!fv('np_interno')){msg('np_msg','err','Completá equipo e interno');return;}
   if(npItems.length===0){msg('np_msg','err','Agregá al menos un aceite para generar el mail');return;}
-  const num=nextNum(),obs=fv('np_obs'),marca=fv('np_marca')||fv('np_equipo');
+  let num=npSavedNum;
+  if(!num){
+    msg('np_msg','inf','<div class="spinner"></div> Guardando pedido antes de generar el mail...');
+    const r=await guardarPedidoInterno();
+    if(!r.ok){
+      msg('np_msg','err','✗ No se pudo guardar el pedido — no se generó el mail para evitar mandar un pedido que no quedó registrado. Volvé a intentar.');
+      return;
+    }
+    num=r.num;
+    msg('np_msg','suc','✓ Pedido '+num+' guardado. Generando mail...');
+  }
+  const obs=fv('np_obs'),marca=fv('np_marca')||fv('np_equipo');
   const fechaStr=fv('np_fecha')?new Date(fv('np_fecha')+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'-';
   const asunto='Pedido de Fluidos p/ '+marca+' INT '+fv('np_interno')+' '+num;
   const filasMail=npItems.map((it,i)=>'   '+(i+1)+'.  '+it.aceite+'\n       Cantidad: '+it.cantidad+' litros').join('\n\n');
